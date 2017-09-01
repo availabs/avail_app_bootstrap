@@ -1,0 +1,24 @@
+- menu_class = " desktop-menu menu-top-w menu-activated-on-hover"
+- menu_class+= (defined?(menu_dark) && menu_dark) ? ' color-scheme-dark' : ''
+div[class="#{menu_class}"]
+  .menu-top-i
+    .logo-w
+      a.logo href="index.html" 
+        img src="img/logo.png"
+
+    ul.main-menu
+      - menu_arr.each do |elem|
+        li[class="#{(elem[0]['items'].count > 0) ? 'has-sub-menu' : ''}"]
+          a href="#{elem[0]['href']}"
+            .icon-w
+              div[class="#{elem[0]['icon']}"]
+            span #{elem[0]['label']}
+          - if (elem[0]['items'].count > 0)
+            ul.sub-menu
+              - elem[0]['items'].each do |sub_elem|
+                li
+                  a href="#{sub_elem[0]['href']}" 
+                    == sub_elem[0]['label']
+    .logged-user-w
+      .avatar-w
+        img src="img/avatar1.jpg" alt=""/

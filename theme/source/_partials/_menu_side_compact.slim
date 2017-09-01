@@ -1,0 +1,34 @@
+- menu_class = "desktop-menu menu-side-compact-w menu-activated-on-hover"
+- menu_class+= (defined?(menu_dark) && menu_dark) ? ' color-scheme-dark' : ''
+
+
+div[class="#{menu_class}"]
+  .logo-w
+    a.logo href="index.html" 
+      img src="img/logo.png"
+  .menu-and-user
+    .logged-user-w
+      .logged-user-i
+        .avatar-w
+          img src="img/avatar1.jpg" alt=""/
+        include ../_partials/_user_hover_menu.slim
+
+    ul.main-menu
+      - menu_arr.each do |elem|
+        li[class="#{(elem[0]['items'].count > 0) ? 'has-sub-menu' : ''}"]
+          a href="#{elem[0]['href']}"
+            .icon-w
+              i[class="#{elem[0]['icon']}"]
+          - if (elem[0]['items'].count > 0)
+            .sub-menu-w
+              .sub-menu-title #{elem[0]['label']}
+              .sub-menu-icon
+                i[class="#{elem[0]['icon']}"]
+              .sub-menu-i
+                ul.sub-menu
+                  - elem[0]['items'].each_with_index do |sub_elem, index|
+                    - if ((index % 5) == 0) && (index != 0)
+                      </ul><ul class="sub-menu">
+                    li
+                      a href="#{sub_elem[0]['href']}" 
+                        == sub_elem[0]['label']

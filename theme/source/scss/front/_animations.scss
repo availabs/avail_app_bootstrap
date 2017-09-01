@@ -1,0 +1,249 @@
+@keyframes showIntroShot1 {
+  0% {
+    opacity: 0;
+    transform: perspective(700px) translate3d(200px, -300px, -200px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(700px) translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes showIntroShot2 {
+  0% {
+    opacity: 0;
+    transform: perspective(700px) translate3d(250px, -250px, -200px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(700px) translate3d(0px, 0px, 0px);
+  }
+}
+
+@keyframes showIntroShot3 {
+  0% {
+    opacity: 0;
+    transform: perspective(700px) translate3d(200px, -100px, -200px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(700px) translate3d(0px, 0px, 0px);
+  }
+}
+
+// Chat
+.shot1 {
+  animation: 0.6s ease-in-out 0.65s showIntroShot1;
+  animation-fill-mode: both;
+}
+// Profile
+.shot2 {
+  animation: 0.7s ease-in-out 0.5s showIntroShot2;
+  animation-fill-mode: both;
+}
+// Dash
+.shot3 {
+  animation: 0.5s ease-in-out 0.8s showIntroShot3;
+  animation-fill-mode: both;
+}
+
+
+
+@keyframes showIntroMedia {
+  0% {
+    transform: perspective(1260px) rotateY(50deg) rotateX(-30deg) scale(0.8);
+  }
+  100% {
+    transform: perspective(1260px) rotateY(-20.2deg) rotateX(10.6deg) scale(1);
+  }
+}
+
+
+.intro-media {
+  animation: 1.4s ease-in-out 0.2s showIntroMedia;
+  animation-fill-mode: both;
+}
+
+
+
+
+
+
+@keyframes showTopMenu {
+  0% {
+    transform: translate3d(0, -100px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.menu-top-w {
+  animation: 0.4s ease-out 1.2s showTopMenu;
+  animation-fill-mode: both;
+}
+
+
+
+
+@keyframes showIntroHeading {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -80px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.intro-heading {
+  animation: 1s ease 0.4s showIntroHeading;
+  animation-fill-mode: both;
+}
+
+
+
+@keyframes showIntroText {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0px, 0);
+  }
+}
+
+.intro-text {
+  animation: 0.8s ease 0.8s showIntroText;
+  animation-fill-mode: both;
+}
+
+
+@keyframes showIntroDescription {
+  0% {
+    transform: perspective(1260px) rotateY(25deg) rotateX(15deg);
+  }
+  100% {
+    transform: perspective(1260px) rotateY(0deg) rotateX(0deg);
+  }
+}
+.intro-description {
+  animation: 2s ease 0.4s showIntroDescription;
+  animation-fill-mode: both;
+}
+
+
+
+@keyframes showIntroButton {
+  0% {
+    opacity: 0;
+    transform: translate3d(40px, 0px, 0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px,0px,0px);
+  }
+}
+
+.intro-buttons .btn-primary{
+  animation: 0.4s ease 1.4s showIntroButton;
+  animation-fill-mode: both;
+}
+
+.intro-buttons .btn-link{
+  animation: 0.4s ease 1.5s showIntroButton;
+  animation-fill-mode: both;
+}
+
+
+
+@keyframes fadeInFader2 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-460px, 0px, 0px) rotate(-45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(-360px, 0px, 0px) rotate(-45deg);
+  }
+}
+@keyframes fadeInFader1 {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50px, -200px, 0px) rotate(-45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(-150px, -200px, 0px) rotate(-45deg);
+  }
+}
+
+.all-wrapper > .fade1 {
+  animation: 2s ease 0s fadeInFader1;
+  animation-fill-mode: both;
+}
+.intro-w .fade2 {
+  animation: 2s ease 0s fadeInFader2;
+  animation-fill-mode: both;
+}
+
+
+
+@keyframes fadeInPropertyItem {
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, 150px, 0px) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px) rotate(0deg);
+  }
+}
+
+
+// PROPERTY ITEMS
+
+.property-items {
+  $elements: 15;
+  @for $i from 0 to $elements {
+    .property-item:nth-child(#{$i}) {
+      animation: 0.5s ease #{$i * 0.1}s fadeInPropertyItem;
+      animation-fill-mode: both;
+    }
+  }
+}
+
+
+
+@keyframes showPropertyTopBar {
+  0% {
+    opacity: 0;
+    transform: translate3d(0px, -30px, 0px) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px) rotate(0deg);
+  }
+}
+.top-bar {
+  animation: 0.7s ease 0s showPropertyTopBar;
+  animation-fill-mode: both;
+}
+
+
+@keyframes showPropertyFilter {
+  0% {
+    opacity: 0;
+    transform: translate3d(-50px, 0px, 0px) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0px, 0px, 0px) rotate(0deg);
+  }
+}
+.rentals-list-w .filter-side {
+  animation: 0.7s ease 0s showPropertyFilter;
+  animation-fill-mode: both;
+}

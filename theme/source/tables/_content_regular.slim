@@ -1,0 +1,184 @@
+.element-wrapper
+  h6.element-header Tables Examples
+  .element-box
+    h5.form-header Table in white box
+    .form-desc You can put a table tag inside an <code>.element-box</code> class wrapper and add <code>.table</code> class to it to get something like this:
+
+    .controls-above-table
+      .row
+        .col-sm-6
+          a.btn.btn-sm.btn-primary href="#" Download CSV
+          a.btn.btn-sm.btn-primary href="#" Archive
+          a.btn.btn-sm.btn-danger href="#" Delete
+        .col-sm-6
+          form.form-inline.justify-content-sm-end
+            input.form-control.form-control-sm.rounded.bright type="text" placeholder="Search"
+            select.form-control.form-control-sm.rounded.bright
+              option value="" selected="selected" Select Status
+              option value="Pending" Pending
+              option value="Active" Active
+              option value="Cancelled" Cancelled
+    .table-responsive
+      table.table.table-lightborder
+        thead
+          tr
+            th Customer Name
+            th Orders
+            th Location
+            th.text-center Status
+            th.text-right Order Total
+        tbody
+          tr
+            td John Mayers
+            td 12
+            td
+              img src="img/flags-icons/us.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $354
+          tr
+            td Kelly Brans
+            td 45
+            td
+              img src="img/flags-icons/ca.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.red data-toggle="tooltip" data-title="Cancelled"
+            td.text-right $94
+          tr
+            td Tim Howard
+            td 112
+            td
+              img src="img/flags-icons/uk.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $156
+          tr
+            td Joe Trulli
+            td 1,256
+            td
+              img src="img/flags-icons/es.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.yellow data-toggle="tooltip" data-title="Pending"
+            td.text-right $1,120
+          tr
+            td Fred Kolton
+            td 74
+            td
+              img src="img/flags-icons/fr.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $74
+.element-wrapper
+  .element-box-tp
+    h5.form-header Table without wrapper
+    .form-desc You can put a table tag inside an <code>.element-box-tp</code> class wrapper and add <code>.table</code> class to it to get something like this:
+    .element-box-tp
+      include ../_partials/_table1.slim
+.element-wrapper
+  .element-box
+    h5.form-header Table Striped
+    .form-desc You can add class <code>.table-striped</code> and <code>.table</code> to a table element to get striped table:
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th Customer Name
+            th Orders
+            th Location
+            th.text-center Status
+            th.text-right Order Total
+        tbody
+          tr
+            td John Mayers
+            td 12
+            td
+              img src="img/flags-icons/us.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $354
+          tr
+            td Kelly Brans
+            td 45
+            td
+              img src="img/flags-icons/ca.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.red data-toggle="tooltip" data-title="Cancelled"
+            td.text-right $94
+          tr
+            td Tim Howard
+            td 112
+            td
+              img src="img/flags-icons/uk.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $156
+          tr
+            td Joe Trulli
+            td 1,256
+            td
+              img src="img/flags-icons/es.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.yellow data-toggle="tooltip" data-title="Pending"
+            td.text-right $1,120
+          tr
+            td Fred Kolton
+            td 74
+            td
+              img src="img/flags-icons/fr.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $74
+.element-wrapper
+  .element-box
+    h5.form-header Bordered and Striped Table
+    .form-desc You can add class <code>.table-bordered</code>, <code>.table-striped</code> and <code>.table</code> to a table element to get striped table:
+    .table-responsive
+      table.table.table-striped.table-bordered
+        thead
+          tr
+            th Customer Name
+            th Orders
+            th Location
+            th.text-center Status
+            th.text-right Order Total
+        tbody
+          tr
+            td John Mayers
+            td 12
+            td
+              img src="img/flags-icons/us.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $354
+          tr
+            td Kelly Brans
+            td 45
+            td
+              img src="img/flags-icons/ca.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.red data-toggle="tooltip" data-title="Cancelled"
+            td.text-right $94
+          tr
+            td Tim Howard
+            td 112
+            td
+              img src="img/flags-icons/uk.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $156
+          tr
+            td Joe Trulli
+            td 1,256
+            td
+              img src="img/flags-icons/es.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.yellow data-toggle="tooltip" data-title="Pending"
+            td.text-right $1,120
+          tr
+            td Fred Kolton
+            td 74
+            td
+              img src="img/flags-icons/fr.png" alt="" width="25px"
+            td.text-center 
+              .status-pill.green data-toggle="tooltip" data-title="Complete"
+            td.text-right $74

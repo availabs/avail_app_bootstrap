@@ -1,0 +1,33 @@
+.demos-w {
+  text-align: center;
+  margin-bottom: 50px;
+  .demo-w {
+    padding: 30px;
+    display: block;
+    transition: all 0.3s ease;
+    &:hover {
+      text-decoration: none;
+      transform: translate3d(0px, -10px, 0px);
+      .demo-shot-w {
+        box-shadow: 0px 5px 50px rgba($brand-primary, 0.4);
+      }
+  }
+  }
+  .demo-header {
+    color: $brand-primary;
+    letter-spacing: 2px;
+    font-size: $font-size-base * 1;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .demo-shot-w {
+    box-shadow: 0px 5px 40px rgba($brand-primary, 0.2);
+    background-color: #fff;
+    transition: all 0.3s ease;
+    .demo-shot {
+      padding-bottom: 70%;
+      background-size: cover;
+    }
+  }
+}

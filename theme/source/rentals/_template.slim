@@ -1,0 +1,12 @@
+doctype html
+html
+  include ../_partials/_global_variables.slim
+  include ../rentals/_header_meta.slim
+  body.white
+    .all-wrapper.rentals
+      include ../rentals/_top_bar.slim
+      == Slim::Template.new(content_box_file).render(Object.new, 'template_vars' => template_vars)
+      include ../front/_footer.slim
+
+      .display-type
+    include ../_partials/_footer_front.slim

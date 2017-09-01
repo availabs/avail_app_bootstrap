@@ -1,0 +1,109 @@
+.testimonials-w {
+  background-color: #0a1a3d;
+  padding-bottom: 100px;
+  padding-top: 100px;
+  margin-top: 100px;
+  .testimonials-i {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.testimonials-slider-w {
+  .slick-arrow {
+    position: absolute;
+    right: 40px;
+    top: -50px;
+    color: rgba(255,255,255,0.3);
+    background-color: transparent;
+    border: none;
+    font-size: 0px;
+    &:before {
+      @include osfont();
+      display: block;
+      font-size: 16px;
+    }
+    &:hover {
+      color: #fff;
+    }
+  }
+  .slick-next {
+    transform: translateX(15px);
+    &:before {
+      content: "\e910";
+    }
+  }
+  .slick-prev {
+    transform: translateX(-35px);
+    &:before {
+      content: "\e919";
+    }
+  }
+  .testimonials-slider {
+
+  }
+  .slide-w {
+    display: inline-block;
+    width: 540px;
+    padding: 20px;
+    height: auto;
+  }
+  .slide {
+    background-color: #fff;
+    border-radius: $global-border-radius;
+    padding: 50px 60px;
+    padding-bottom: 30px;
+    box-shadow: 0px 4px 30px rgba(0,0,0,0.8);
+    transition: all 0.2s ease;
+    position: relative;
+    &:before {
+      content: "\e966";
+      @include osfont();
+      font-size: 120px;
+      color: rgba($brand-primary, 0.1);
+      position: absolute;
+      top: 10px;
+      left: 20px;
+    }
+    &.slick-active {
+    }
+  }
+  .testimonial-title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $brand-primary;
+    margin-bottom: 10px;
+    font-weight: $font-weight-bold;
+  }
+  .testimonial-content {
+    color: $body-color-light;
+    font-weight: $font-weight-light;
+  }
+  .testimonial-by {
+    text-align: right;
+    color: $body-color-light;
+    font-weight: $font-weight-light;
+    font-size: $font-size-base * 0.9;
+    margin-top: 20px;
+    strong {
+      color: $body-color;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .avatar {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 20px;
+      img {
+        width: 50px;
+        height: auto;
+        border-radius: 30px;
+      }
+    }
+  }
+}

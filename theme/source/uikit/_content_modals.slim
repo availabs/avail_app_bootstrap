@@ -1,0 +1,87 @@
+.element-wrapper
+  h6.element-header Examples of Modals
+  .element-box
+    h5.form-header Regular Modals
+    .form-desc Modals are streamlined, but flexible dialog prompts powered by JavaScript. They support a number of use cases from user notification to completely custom content and feature a handful of helpful subcomponents, sizes, and more. You can read full bootstrap documentation about Modals by <a href="https://v4-alpha.getbootstrap.com/components/modal/" target="_blank">clicking here</a>
+    h6.form-header Regular Modal
+    /! Button trigger modal
+    button.btn.btn-primary data-target="#exampleModal1" data-toggle="modal" type="button" 
+      | Launch demo modal
+    #exampleModal1.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" role="dialog" tabindex="-1" 
+      .modal-dialog role="document" 
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Modal title
+            button.close aria-label="Close" data-dismiss="modal" type="button" 
+              span aria-hidden="true"  &times;
+          .modal-body
+            form
+              .form-group
+                label for=""  Email address
+                input.form-control placeholder=("Enter email") type="email" /
+              .row
+                .col-sm-6
+                  .form-group
+                    label for=""  Password
+                    input.form-control placeholder="Password" type="password" /
+                .col-sm-6
+                  .form-group
+                    label for="" Confirm Password
+                    input.form-control placeholder="Password" type="password" /
+          .modal-footer
+            button.btn.btn-secondary data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary type="button"  Save changes
+  .element-box
+    h5.form-header Optional Sizes
+    .form-desc <p>Modals have two optional sizes, available via modifier classes to be placed on a <code class="highlighter-rouge">.modal-dialog</code>. These sizes kick in at certain breakpoints to avoid horizontal scrollbars on narrower viewports.</p>
+    
+    /! Large modal
+    button.mr-2.btn.btn-primary data-target=".bd-example-modal-lg" data-toggle="modal"  Large modal
+    .modal.fade.bd-example-modal-lg aria-hidden="true" aria-labelledby="myLargeModalLabel" role="dialog" tabindex="-1" 
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Modal title
+            button.close aria-label="Close" data-dismiss="modal" type="button" 
+              span aria-hidden="true"  &times;
+          .modal-body
+            form
+              .form-group
+                label for=""  Email address
+                input.form-control placeholder=("Enter email") type="email" /
+              .row
+                .col-sm-6
+                  .form-group
+                    label for=""  Password
+                    input.form-control placeholder="Password" type="password" /
+                .col-sm-6
+                  .form-group
+                    label for="" Confirm Password
+                    input.form-control placeholder="Password" type="password" /
+          .modal-footer
+            button.btn.btn-secondary data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary type="button"  Save changes
+    /! Small modal
+    button.btn.btn-primary data-target=".bd-example-modal-sm" data-toggle="modal" type="button"  Small modal
+    .modal.fade.bd-example-modal-sm aria-hidden="true" aria-labelledby="mySmallModalLabel" role="dialog" tabindex="-1" 
+      .modal-dialog.modal-sm
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Modal title
+            button.close aria-label="Close" data-dismiss="modal" type="button" 
+              span aria-hidden="true"  &times;
+          .modal-body
+            form
+              .form-group
+                label for=""  Email address
+                input.form-control placeholder=("Enter email") type="email" /
+              .form-group
+                label for=""  Password
+                input.form-control placeholder="Password" type="password" /
+              .form-group
+                label for="" Confirm Password
+                input.form-control placeholder="Password" type="password" /
+          .modal-footer
+            button.btn.btn-secondary data-dismiss="modal" type="button"  Close
+            button.btn.btn-primary type="button"  Save changes
+

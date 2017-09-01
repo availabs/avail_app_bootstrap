@@ -1,0 +1,26 @@
+.features-table {
+  border-left: 1px solid rgba(0,0,0,0.1);
+  .feature-cell {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 60px;
+    background-color: #fff;
+    box-shadow: 0px 5px 40px rgba(41, 111, 226, 0.3);
+    .feature-icon {
+      color: $brand-primary;
+      font-size: 40px;
+      margin-bottom: 40px;
+      i {
+
+      }
+    }
+    .feature-title {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .feature-text {
+      color: $body-color-light;
+      font-weight: $font-weight-light;
+    }
+  }
+}

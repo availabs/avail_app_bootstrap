@@ -1,0 +1,28 @@
+.desktop-menu.menu-top-image-w.menu-activated-on-hover[style="background-image: url(img/menu_bg.jpg)"]
+  .top-part-w
+    .logo-w
+      a.logo href="index.html" 
+        img src="img/logo.png"
+        span Clean Admin
+    .user-and-search
+      .element-search
+        input type="text" placeholder="Type to search for products..."/
+      .logged-user-w
+        .avatar-w
+          img src="img/avatar1.jpg" alt=""/
+  h2.page-menu-header Forms
+  .menu-top-image-i
+    ul.main-menu
+      - menu_arr.each do |elem|
+        li[class="#{(elem[0]['items'].count > 0) ? 'has-sub-menu' : ''}"]
+          a href="#{elem[0]['href']}"
+            .icon-w
+              div[class="#{elem[0]['icon']}"]
+            span #{elem[0]['label']}
+          - if (elem[0]['items'].count > 0)
+            ul.sub-menu
+              - elem[0]['items'].each do |sub_elem|
+                li
+                  a href="#{sub_elem[0]['href']}" 
+                    == sub_elem[0]['label']
+    .

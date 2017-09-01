@@ -1,0 +1,158 @@
+.row
+  .col-sm-12
+    .element-wrapper
+      .element-actions
+        form.form-inline.justify-content-sm-end
+          select.form-control.form-control-sm.rounded
+            option value="Pending" Today
+            option value="Active" Last Week 
+            option value="Cancelled" Last 30 Days
+      h6.element-header Sales Dashboard
+      .element-content
+        .row
+          .col-sm-4
+            .element-box.el-tablo
+              .label Products Sold
+              .value 57
+              .trending.trending-up
+                span 12%
+                i.os-icon.os-icon-arrow-up2
+          .col-sm-4
+            .element-box.el-tablo
+              .label Gross Profit
+              .value $457
+              .trending.trending-down-basic
+                span 12%
+                i.os-icon.os-icon-arrow-2-down
+          .col-sm-4
+            .element-box.el-tablo
+              .label New Customers
+              .value 125
+              .trending.trending-down-basic
+                span 9%
+                i.os-icon.os-icon-graph-down
+.row
+  .col-sm-8
+    .element-wrapper
+      h6.element-header New Orders
+      .element-box
+        .table-responsive
+          table.table.table-lightborder
+            thead
+              tr
+                th Customer Name
+                th Products Ordered
+                th.text-center Status
+                th.text-right Order Total
+            tbody
+              tr
+                td.nowrap John Mayers
+                td
+                  .cell-image-list
+                    .cell-img style="background-image: url(img/portfolio9.jpg)"
+                    .cell-img style="background-image: url(img/portfolio2.jpg)"
+                    .cell-img style="background-image: url(img/portfolio12.jpg)"
+                    .cell-img-more + 5 more
+                
+                td.text-center 
+                  .status-pill.green data-toggle="tooltip" data-title="Complete"
+                td.text-right $354
+              tr
+                td.nowrap Kelly Brans
+                td
+                  .cell-image-list
+                    .cell-img style="background-image: url(img/portfolio14.jpg)"
+                    .cell-img style="background-image: url(img/portfolio8.jpg)"
+                
+                td.text-center 
+                  .status-pill.red data-toggle="tooltip" data-title="Cancelled"
+                td.text-right $94
+              tr
+                td.nowrap Tim Howard
+                td
+                  .cell-image-list
+                    .cell-img style="background-image: url(img/portfolio16.jpg)"
+                    .cell-img style="background-image: url(img/portfolio14.jpg)"
+                    .cell-img style="background-image: url(img/portfolio5.jpg)"
+                
+                td.text-center 
+                  .status-pill.green data-toggle="tooltip" data-title="Complete"
+                td.text-right $156
+              tr
+                td.nowrap Joe Trulli
+                td
+                  .cell-image-list
+                    .cell-img style="background-image: url(img/portfolio1.jpg)"
+                    .cell-img style="background-image: url(img/portfolio5.jpg)"
+                    .cell-img style="background-image: url(img/portfolio6.jpg)"
+                    .cell-img-more + 2 more
+                
+                td.text-center 
+                  .status-pill.yellow data-toggle="tooltip" data-title="Pending"
+                td.text-right $1,120
+              tr
+                td.nowrap Jerry Lingard
+                td
+                  .cell-image-list
+                    .cell-img style="background-image: url(img/portfolio9.jpg)"
+                
+                td.text-center 
+                  .status-pill.green data-toggle="tooltip" data-title="Complete"
+                td.text-right $856
+
+  .col-sm-4
+    .element-wrapper
+      h6.element-header Top Selling Today
+      .element-box
+        .el-chart-w
+          canvas#donutChart width="120" height="120"
+          .inside-donut-chart-label
+            strong 142
+            span Total Orders
+        .el-legend
+          .legend-value-w
+            .legend-pin style="background-color: #6896f9;"
+            .legend-value Processed
+          .legend-value-w
+            .legend-pin style="background-color: #85c751;"
+            .legend-value Cancelled
+          .legend-value-w
+            .legend-pin style="background-color: #d97b70;"
+            .legend-value Pending
+.row
+  .col-sm-12
+    .element-wrapper
+      h6.element-header Unique Visitors Graph
+      .element-box
+        .os-tabs-w
+          .os-tabs-controls
+            ul.nav.nav-tabs.smaller
+              li.nav-item
+                a.nav-link.active data-toggle="tab" href="#tab_overview" Overview
+              li.nav-item
+                a.nav-link data-toggle="tab" href="#tab_sales" Sales
+            ul.nav.nav-pills.smaller.hidden-sm-down
+              li.nav-item
+                a.nav-link data-toggle="tab" href="#" Today
+              li.nav-item
+                a.nav-link.active data-toggle="tab" href="#" 7 Days
+              li.nav-item
+                a.nav-link data-toggle="tab" href="#" 14 Days
+              li.nav-item
+                a.nav-link data-toggle="tab" href="#" Last Month
+
+          .tab-content
+            #tab_overview.tab-pane.active
+              .el-tablo
+                .label Unique Visitors
+                .value 12,537
+              .el-chart-w
+                canvas#lineChart width="600px" height="150px"
+            #tab_sales.tab-pane
+            #tab_conversion.tab-pane
+.row
+  .col-sm-12
+    .element-wrapper
+      h6.element-header Recent Orders
+      .element-box-tp
+        include ../_partials/_table1.slim

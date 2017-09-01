@@ -1,0 +1,62 @@
+/* 
+
+TABLE OF CONTENTS
+
+#1. Theme Variables
+#2. Theme Mixins
+#3. Bootstrap Override Styles
+  #3a. Override default includes of bootstrap
+  #3b. Override bootstrap table styles
+  #3c. Override bootstrap form styles
+  #3d. Override bootstrap navigation styles
+  #3e. Override bootstrap button styles
+  #3f. Override bootstrap breadcrumbs styles
+  #3g. Override bootstrap typography styles
+#4. Overrides for various plugins that are included with this template
+#5. Handy Animations 
+#6. User Profiles
+#7. Layout styles
+#8. Menu styles
+#9. Styles for all element blocks
+#10. Helpful Misc Styles
+#11. Icon Fonts
+#12. Chat
+#13. App - Email
+#14. App - Projects
+#15. App - Rentals
+#16. App - Full Chat
+#17. Pricing Plans
+#18. Plugin Overrides
+#19. Responsive Styles
+
+*/
+
+@import "theme-variables";  /* #1. Theme Variables */
+@import "../theme-mixins";     /* #2. Theme Mixins */
+
+/* 3. Bootstrap Override Styles */
+@import "bootstrap-override/bootstrap";   /* --  #3a. Override default includes of bootstrap */
+@import "bootstrap-override/tables";      /* --  #3b. Override bootstrap table styles */
+@import "bootstrap-override/forms";       /* --  #3c. Override bootstrap form styles */
+@import "bootstrap-override/nav";         /* --  #3d. Override bootstrap navigation styles */
+@import "bootstrap-override/buttons";     /* --  #3e. Override bootstrap button styles */
+@import "bootstrap-override/breadcrumb";  /* --  #3f. Override bootstrap breadcrumbs styles */
+@import "bootstrap-override/type";        /* --  #3g. Override bootstrap typography styles */
+
+@import "animations";         /* #4.  */
+@import "layout";             /* #5.  */
+@import "menu";               /* #6.  */
+@import "utilities";          /* #7.  */
+@import "../osfont";          /* #8.  */
+@import "intro";              /* #9.  */
+@import "counters";           /* #10.  */
+@import "features_grid";      /* #11.  */
+@import "testimonials";       /* #12.  */
+@import "projects";           /* #13.  */
+@import "rentals";            /* #14.  */
+@import "demos";              /* #15.  */
+@import "call_to_action";     /* #16.  */
+@import "footer";             /* #17.  */
+@import "../plugin-overrides"; /* #18.  */
+@import "responsive";         /* #19. Responsive Styles */
+

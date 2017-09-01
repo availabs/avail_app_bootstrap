@@ -1,0 +1,484 @@
+/* 
+
+Contents: 
+
+#1.  Screen size <= 1650px
+#2.  Screen size <= 1550px
+#3.  Screen size <= 1350px
+#4.  Screen size between 1100px - 1350px
+#5.  Screen size <= 1400px
+#6.  Screen size <= 1150px
+#7.  Screen size <= 1250px
+#8.  Tablets and phones  (< 1024px)
+#9.  Tablets (768px - 1024px)
+#10. Phones & Tablets Vertical Orientataion (< 768px)
+#11. Phones (< 767px)
+
+
+*/
+
+
+
+
+
+/* #1.  Screen size <= 1650px */
+@media (max-width: 1650px){
+  .section-header {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* #2.  Screen size <= 1550px */
+@media (max-width: 1550px){
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* #3.  Screen size <= 1350px */
+@media (max-width: 1350px){
+  .intro-w.layout-v1 .intro-description .intro-heading {
+    font-size: $font-size-h1 * 1.3;
+  }
+  .section-header .section-title {
+    font-size: $font-size-h1 * 1.1;
+  }
+  .features-table .feature-cell {
+    padding: 50px 40px;
+  }
+  .call-to-action .cta-header {
+    font-size: $font-size-h1 * 1.1;
+  }
+  .demos-w .demo-w {
+    padding: 30px 20px;
+  }
+  .menu-top-w ul.main-menu li a {
+    padding: 20px 15px;
+  }
+
+  .rentals-list-w .filter-side {
+    flex: 0 0 350px
+  }
+  .rentals-list-w .filter-side .filter-body {
+    padding: 10px 20px 30px 20px
+  }
+  .top-bar .logo-w {
+    flex: 0 0 350px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* #4.  Screen size between 1100px - 1350px */
+@media (min-width: 1100px) and (max-width: 1350px){
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #5.  Screen size <= 1400px */
+@media (max-width: 1400px){
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* #6.  Screen size <= 1150px */
+@media (max-width: 1150px){
+  .intro-w.layout-v1 .intro-description .intro-text {
+    font-size: $font-size-base * 1.1;
+  }
+  .intro-w.layout-v1 .intro-description .intro-heading {
+    font-size: $font-size-h1 * 1.1;
+  }
+  .section-header .section-title {
+    font-size: $font-size-h1 * 1;
+  }
+  .intro-w.layout-v1 .intro-description {
+    flex-basis: 500px;
+  }
+  .menu-top-w ul.small-menu li.separate {
+    padding-left: 15px;
+    margin-left: 0px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* #7.  Screen size <= 1250px */
+@media (max-width: 1250px){
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #8.  Tablets and phones  (< 1024px) */
+@media (max-width: 1024px){
+  .os-container {
+    padding: 0px 20px;
+  }
+  .features-table {
+    .b-l, .b-r, .b-b, .b-t {
+      border-width: 0px;
+    }
+  }
+  .menu-top-w .menu-top-i {
+    display: none;
+  }
+  .mobile-menu-w {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #9.  Tablets (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px){
+  .counters-w .counter .counter-value {
+    font-size: $font-size-h1 * 1.3;
+  }
+  .counters-w .counter .counter-name {
+    font-size: $font-size-base * 0.9;
+  }
+  .counters-w .counter .counter-description {
+    font-size: $font-size-base;
+    width: 160px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* #10. Phones & tablets vertical orientation (<= 768px) */
+@media (max-width: 768px){
+  .intro-w.layout-v1 .intro-i {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+  .intro-w.layout-v1 .intro-description {
+    width: auto;
+    padding: 50px;
+    flex-basis: auto;
+  }
+  .intro-w.layout-v1 .intro-media {
+    width: 90%;
+    padding-bottom: 45%;
+    padding-top: 35%;
+  }
+  .counters-w .counters-i {
+    display: block;
+  }
+  .counters-w .counter {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    &:last-child {
+      margin-bottom: 10px;
+      padding-bottom: 0px;
+      border-bottom: none;
+    }
+    .counter-value-w {
+      width: 140px;
+    }
+    .counter-description {
+      width: auto;
+      flex: 1 1 auto;
+      font-size: $font-size-base * 1.2;
+    }
+  }
+
+  // Rentals
+  .rentals {
+    .top-bar {
+      flex-direction: column;
+      .logo-w {
+        flex: 1;
+      }
+      .filters {
+        flex: 1;
+        flex-direction: column;
+        padding: 30px 0px;
+        text-align: center;
+        .filters-header {
+          padding-right: 0px;
+        }
+        .filter-w {
+          border-left: none;
+          flex: 1;
+          .form-group {
+            margin-bottom: 0;
+          }
+          & + .filter-w {
+            padding-top: 0px;
+          }
+        }
+        .buttons-w {
+          flex: 1;
+        }
+      }
+    }
+
+    .rentals-list-w {
+      flex-direction: column;
+      .filter-side {
+        flex: 1;
+      }
+      .rentals-list {
+        flex: 1;
+        .property-items {
+          .property-item {
+            flex: 1;
+            padding: 0px;
+            .item-info {
+              padding: 20px;
+            }
+          }
+        }
+      }
+    }
+    .pagination-w, .list-controls {
+      flex-direction: column;
+      text-align: center;
+      .list-order {
+        margin: 0px auto;
+        margin-top: 10px;
+      }
+      .pagination-info {
+        margin-bottom: 20px;
+      }
+    }
+    .property-single {
+      .property-info-w {
+        flex-direction: column;
+        padding: 0px 20px;
+        .property-info-main {
+          padding: 0px;
+          padding-top: 20px;
+          border-left: none;
+          .property-features-highlight {
+            flex-wrap: wrap;
+            .feature {
+              flex: 0 0 50%;
+              padding: 20px 10px;
+              &:nth-child(1){
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+              }
+              &:nth-child(2){
+                border-left: 1px solid rgba(0,0,0,0.1);
+                border-bottom: 1px solid rgba(0,0,0,0.1);
+              }
+              &:nth-child(4){
+                border-left: 1px solid rgba(0,0,0,0.1);
+              }
+            }
+          }
+          .property-price {
+            position: relative;
+            top: auto;
+            right: auto;
+            transform: none;
+            width: auto;
+            padding: 15px 0px;
+            text-align: left;
+            border-bottom: none;
+          }
+        }
+        .property-section .property-section-body {
+          padding: 20px 0px;
+        }
+        .property-section-header .filter-toggle {
+          right: 0px;
+        }
+        .property-info-side {
+          border-left: none;
+          border-right: none;
+          .side-action-form {
+            padding: 20px 0px;
+          }
+        }
+      }
+    }
+    .related-listings {
+      flex-direction: column;
+      .property-item {
+        flex: 1;
+        .item-info {
+          padding: 20px;
+        }
+      }
+    }
+  }
+}
+
+
+/* #11. Phones (< 767px) */
+@media (max-width: 767px){
+  .intro-w.layout-v1 .intro-description .intro-heading {
+    font-size: $font-size-h1 * 0.8;
+  }
+  .intro-w.layout-v1 .intro-media {
+    padding-left: 20px;
+  }
+  .intro-w.layout-v1 .intro-description {
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .intro-w.layout-v1 .intro-description .intro-heading:before {
+    left: 47.5%;
+    transform: translateX(-50%);
+  }
+  .intro-w.layout-v1 .intro-description .intro-heading:after {
+    left: 52.5%;
+    transform: translateX(-50%);
+  }
+  .intro-w.layout-v1 .intro-media {
+    padding-top: 40%;
+    padding-bottom: 50%;
+  }
+  .intro-w.layout-v1 .intro-description .intro-buttons {
+    text-align: center;
+    .btn.btn-primary {
+      margin-bottom: 20px;
+      margin-right: 0px;
+    }
+  }
+  .counters-w {
+    margin-bottom: 40px;
+  }
+  .section-header .section-title {
+    font-size: $font-size-h1 * 0.8;
+  }
+  .counters-w .counter {
+    flex-direction: column;
+    text-align: center;
+  }
+  .counters-w .counter .counter-value-w {
+    margin-right: 0px;
+    padding-right: 0px;
+    border-right: none;
+    margin-bottom: 10px;
+  }
+  .counters-w .counters-i {
+    padding: 40px 10px;
+  }
+  .demos-w .demo-w {
+    padding: 20px 10px;
+  }
+  .footer-w {
+    .b-r {
+      border-width: 0px;
+    }
+  }
+  .testimonials-slider-w .slick-arrow,
+  .projects-slider-w .slick-arrow {
+    top: -20px;
+  }
+  .section-header {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .section-desc {
+      font-size: $font-size-base * 1;
+    }
+  }
+  .project-slide .project-content {
+    padding: 20px;
+  }
+  .testimonials-slider-w .slide {
+    padding: 50px 40px;
+    padding-bottom: 25px;
+    text-align: center;
+  }
+  .testimonials-w {
+    padding: 50px 0px;
+    margin-top: 70px;
+  }
+  .testimonials-slider-w .testimonial-by {
+    text-align: center;
+    margin-top: 20px;
+    .avatar {
+      margin-top: 10px;
+    }
+  }
+}

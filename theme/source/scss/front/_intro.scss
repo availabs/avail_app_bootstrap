@@ -1,0 +1,126 @@
+.intro-w {
+  position: relative;
+  .intro-i {
+
+  }
+
+  &.layout-v1 {
+    padding: 5% 0px;
+    .intro-i {
+      display: flex;
+      align-items: center;
+      height: 75vh;
+    }
+    .intro-description {
+      flex: 0 1 600px;
+      .intro-heading {
+        font-size: $font-size-h1 * 1.6;
+        margin-bottom: 1.5rem;
+        position: relative;
+        &:before, &:after {
+          content: "";
+          width: 20px;
+          height: 20px;
+          top: -55px;
+          border-radius: 15px;
+          position: absolute;
+        }
+        &:before {
+          left: 5;
+          background-color: lighten($brand-primary, 35%);
+        }
+        &:after {
+          left: 20px;
+          background-color: $brand-primary;
+        }
+        span {
+          color: $brand-primary;
+        }
+      }
+      .intro-text {
+        font-size: $font-size-base * 1.3;
+        color: $body-color-light;
+        font-weight: $font-weight-light;
+      }
+      .intro-buttons {
+        padding-top: 30px;
+        .btn {
+          border-radius: 40px;
+          font-size: $font-size-base * 1.1;
+          padding: 15px 30px;
+          i {
+            font-size: 30px;
+          }
+          span.highlight {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 15px;
+            padding-left: 15px;
+            border-left: 1px solid rgba(0,0,0,0.1);
+          }
+          &.btn-primary {
+            // background-image: linear-gradient(to right, $brand-primary, #5510D1);
+            border: transparent;
+            margin-right: 50px;
+          }
+          &.btn-link {
+            border: transparent;
+            border-bottom: 2px solid $brand-primary;
+            border-radius: 0px;
+            padding: 5px 5px;
+          }
+        }
+      }
+    }
+    .intro-media {
+      flex: 1;
+      padding-left: 120px;
+      position: relative;
+      transform: perspective(1260px) rotateY(-20.2deg) rotateX(10.6deg) scale(1);
+      .shot {
+        position: absolute;
+        .shot-i {
+          box-shadow: 0 2px 50px 0 rgba(68,125,232,0.50);
+          background-size: cover;
+        }
+      }
+      // Chat Card
+      .shot1 {
+        z-index: 2;
+        width: 95%;
+        .shot-i {
+
+          padding-bottom: 57%;
+          transform: translate(0, -70%);
+        }
+      }
+      // Profile Card
+      .shot2 {
+        z-index: 1;
+        width: 37%;
+        .shot-i {
+          padding-bottom: 105%;
+          transform: translate(-45%, -10%);
+        }
+      }
+      // Dashboard 2 Card
+      .shot3 {
+        z-index: 3;
+        width: 75%;
+        .shot-i {
+          padding-bottom: 81%;
+          transform: translate(30%, -36%);
+        }
+      }
+      // Dashboard 1 Card
+      .shot4 {
+        z-index: 4;
+        .shot-i {
+          padding-bottom: 81%;
+          width: 500px;
+          transform: translate(10%, -16%);
+        }
+      }
+    }
+  }
+}

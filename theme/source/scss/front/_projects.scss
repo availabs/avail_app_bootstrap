@@ -1,0 +1,129 @@
+.projects-slider-w {
+  position: relative;
+  margin-bottom: 60px;
+  .slick-arrow {
+    position: absolute;
+    right: 40px;
+    top: -50px;
+    color: rgba($brand-primary,0.3);
+    background-color: transparent;
+    border: none;
+    font-size: 0px;
+    &:before {
+      @include osfont();
+      display: block;
+      font-size: 16px;
+    }
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  .slick-next {
+    transform: translateX(15px);
+    &:before {
+      content: "\e910";
+    }
+  }
+  .slick-prev {
+    transform: translateX(-35px);
+    &:before {
+      content: "\e919";
+    }
+  }
+}
+.projects-slider-i {
+
+}
+.project-slide-w {
+  padding: 40px 20px;
+  width: 450px;
+  height: auto;
+}
+.project-slide {
+  background-color: #fff;
+  box-shadow: 0 2px 50px 0 rgba($brand-primary,0.13);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  will-change: transform;
+
+  .project-media-w {
+    overflow: hidden;
+    position: relative;
+    padding: 10px;
+  }
+  .decor {
+    position: absolute;
+    bottom: -1px;
+    right: 0px;
+    max-width: 100%;
+    z-index: 3;
+    filter: drop-shadow(0px 0px 10px rgba(0,0,0,0.2));
+    transition: all 0.4s ease;
+    .decor-path {
+      fill: #fff;
+    }
+  }
+  .project-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px 8px 0px 8px;
+    .project-media-i {
+      border-radius: 8px 8px 0px 8px;
+      transition: all 0.4s ease;
+      padding-bottom: 65%;
+      background-size: cover;
+      background-position: center center;
+      will-change: transform;
+    }
+  }
+  .project-content {
+    padding: 40px;
+  }
+  .project-title {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: $font-size-base * 0.8;
+    font-weight: $font-weight-bold;
+    margin-bottom: 15px;
+  }
+  .project-text {
+    color: $body-color-light;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-weight: $font-weight-light;
+    font-size: $font-size-base * 0.9;
+  }
+  .project-icons-buton {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .icons-w {
+      a {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 22px;
+        color: $brand-primary;
+        margin-right: 20px;
+      }
+    }
+    .btn-w {
+      border-left: 1px solid rgba(0,0,0,0.1);
+      padding-left: 20px;
+      margin-left: 20px;
+    }
+  }
+
+
+
+  &:hover {
+    box-shadow: 0 2px 40px 0 rgba($brand-primary, 0.3);
+    transform: translate3d(0, -10px, 0);
+    .decor {
+    }
+    .project-media-i {
+      transform: scale(1.1);
+    }
+  }
+}

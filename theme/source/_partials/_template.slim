@@ -1,0 +1,78 @@
+doctype html
+html
+  include ../_partials/_header_meta.slim
+  body
+    - all_wrapper_class = 'all-wrapper'
+    - all_wrapper_class += defined?(menu_top) ? ' menu-top' : ' menu-side'
+    - all_wrapper_class += defined?(content_panel_file) ? ' with-side-panel' : ''
+    - all_wrapper_class += defined?(no_padding) ? ' no-padding-content' : ''
+    - all_wrapper_class += defined?(white_bg) ? ' white-bg-content' : ''
+
+    div[class="#{all_wrapper_class}"]
+      .layout-w
+        /!
+          ------------------
+          START - Mobile Menu
+          ------------------
+        include ../_partials/_menu_mobile.slim
+        /!
+          ------------------
+          END - Mobile Menu
+          ------------------
+        - if defined? menu_file
+          - menu_name = menu_file.sub('../_partials/_', '').gsub('_', ' ').sub('.slim', ' ').capitalize
+          /!
+            ------------------
+            START - #{menu_name}
+            ------------------
+          == Slim::Template.new(menu_file).render(Object.new, 'menu_arr' => menu_arr, 'purchase_url' => purchase_url, 'menu_dark' => defined?(menu_dark) ? menu_dark : false )
+          /!
+            ------------------
+            END - #{menu_name}
+            ------------------
+        - else
+          include ../_partials/_menu_side.slim
+        .content-w
+          - if defined? secondary_top_menu
+            include ../_partials/_menu_top_secondary.slim
+          - unless defined?(no_breadcrumbs)
+            /!
+              ------------------
+              START - Breadcrumbs
+              ------------------
+            include ../_partials/_breadcrumbs.slim
+            /!
+              ------------------
+              END - Breadcrumbs
+              ------------------
+          - if defined? content_panel_file
+            .content-panel-toggler
+              i.os-icon.os-icon-grid-squares-22
+              span Sidebar
+          .content-i
+            .content-box
+              == Slim::Template.new(content_box_file).render(Object.new, 'template_vars' => template_vars)
+              /!
+                ------------------
+                START - Chat Popup Box
+                ------------------
+              include ../misc/_content_chat.slim
+              /!
+                ------------------
+                END - Chat Popup Box
+                ------------------
+            - if defined? content_panel_file
+              /!
+                ------------------
+                START - Sidebar
+                ------------------
+              .content-panel
+                .content-panel-close
+                  i.os-icon.os-icon-close
+                == Slim::Template.new(content_panel_file).render()
+              /!
+                ------------------
+                END - Sidebar
+                ------------------
+      .display-type
+    include ../_partials/_footer.slim
