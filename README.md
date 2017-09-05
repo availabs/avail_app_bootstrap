@@ -6,12 +6,6 @@
 * [more editor integration](https://github.com/prettier/prettier/tree/master/editors)
 * [eslint config](https://github.com/facebookincubator/create-react-app/tree/664b7651ae6f4b003ffb0f7e43074c86533584e1/packages/eslint-config-react-app)
 
-# Syncing with the Facebook CRA repo
-
-* [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
-* [Syncing a fork](https://help.github.com/articles/syncing-a-fork/)
-
-
 
 -------
 
