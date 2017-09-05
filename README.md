@@ -1,3 +1,20 @@
+# Linting
+
+* [gaearon's words of wisdom](https://www.reddit.com/r/reactjs/comments/6p3398/totally_lost_on_createreactapp_with/dkmctwi/)
+* [Formatting Code Automatically](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#formatting-code-automatically)
+* [editor integration](https://babeljs.io/docs/editors)
+* [more editor integration](https://github.com/prettier/prettier/tree/master/editors)
+* [eslint config](https://github.com/facebookincubator/create-react-app/tree/664b7651ae6f4b003ffb0f7e43074c86533584e1/packages/eslint-config-react-app)
+
+# Syncing with the Facebook CRA repo
+
+* [Configuring a remote for a fork](https://help.github.com/articles/configuring-a-remote-for-a-fork/)
+* [Syncing a fork](https://help.github.com/articles/syncing-a-fork/)
+
+
+
+-------
+
 # Serverless Stack Demo React App
 
 [Serverless Stack](http://serverless-stack.com) is a free comprehensive guide to creating full-stack serverless applications. We create a [note taking app](http://demo.serverless-stack.com) from scratch.

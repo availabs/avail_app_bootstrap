@@ -34,5 +34,6 @@
     "deploy": "aws s3 sync build/ s3://notes-app-client",
     "postdeploy": "aws cloudfront create-invalidation --distribution-id E1KTCKT9SOAHBW --paths '/*' && aws cloudfront create-invalidation --distribution-id E3MQXGQ47VCJB0 --paths '/*'",
     "eject": "react-scripts eject"
-  }
+  },
+  "devDependencies": {}
 }
