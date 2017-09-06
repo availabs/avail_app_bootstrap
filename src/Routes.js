@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-// import AppliedRoute from "./components/auth/AppliedRoute";
 import AuthenticatedRoute from "./components/auth/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/auth/UnauthenticatedRoute";
 
