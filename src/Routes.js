@@ -29,7 +29,7 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <AuthenticatedRoute
-      path="/station-info/:rc_id"
+      path="/station-info/:rcStation"
       exact
       component={StationInfo}
       props={childProps}

@@ -1,3 +1,16 @@
+# Relay
+
+```
+npm install
+./relay-integration/installDependencies.js
+./relay-integration/installWatchman.sh
+./relay-integration/alterWebpack.js
+./relay-integration/downloadGraphQLSchema.js
+./relay-integration/compileGraphQLSchema.js
+```
+
+sample route: http://localhost:3000/station-info/11_0009
+
 # Linting
 
 * [gaearon's words of wisdom](https://www.reddit.com/r/reactjs/comments/6p3398/totally_lost_on_createreactapp_with/dkmctwi/)
