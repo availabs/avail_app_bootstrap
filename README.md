@@ -12,6 +12,7 @@ npm install
 sample routes:
 
 * http://localhost:3000/all-station-ids
+* http://localhost:3000/all-region-names
 * http://localhost:3000/station-info/11_0009
 * http://localhost:3000/avg-weekday-speed-table
 * http://localhost:3000/avg-weekday-vehicle-classification-table

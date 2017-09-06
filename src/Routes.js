@@ -11,6 +11,7 @@ import Signup from './containers/Signup';
 import NewNote from './containers/NewNote';
 import NotFound from './containers/NotFound';
 import AllStationIDs from './containers/AllStationIDs';
+import AllRegionNames from './containers/AllRegionNames';
 import AvgWdySpeedTableDescription from './containers/AvgWdySpeedTableDescription';
 import AvgWdyVehicleClassificationTableDescription from './containers/AvgWdyVehicleClassificationTableDescription';
 import AvgWdyVolumeTableDescription from './containers/AvgWdyVolumeTableDescription';
@@ -41,6 +42,12 @@ export default ({ childProps }) => (
       path="/all-station-ids/"
       exact
       component={AllStationIDs}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/all-region-names/"
+      exact
+      component={AllRegionNames}
       props={childProps}
     />
     <AuthenticatedRoute
