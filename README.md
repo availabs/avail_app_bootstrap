@@ -9,7 +9,10 @@ npm install
 ./relay-integration/compileGraphQLSchema.js
 ```
 
-sample route: http://localhost:3000/station-info/11_0009
+sample routes:
+
+* http://localhost:3000/all-station-ids
+* http://localhost:3000/station-info/11_0009
 
 # Linting
 

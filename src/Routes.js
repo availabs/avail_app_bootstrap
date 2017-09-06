@@ -10,6 +10,7 @@ import Notes from './containers/Notes';
 import Signup from './containers/Signup';
 import NewNote from './containers/NewNote';
 import NotFound from './containers/NotFound';
+import AllStationIDs from './containers/AllStationIDs';
 import StationInfo from './containers/StationInfo';
 
 export default ({ childProps }) => (
@@ -26,6 +27,12 @@ export default ({ childProps }) => (
       path="/signup"
       exact
       component={Signup}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/all-station-ids/"
+      exact
+      component={AllStationIDs}
       props={childProps}
     />
     <AuthenticatedRoute
