@@ -1,4 +1,3 @@
-
 const HOST = 'https://aauth.availabs.org/';
 
 // ------------------------------------
@@ -13,36 +12,36 @@ export const SET_USER = 'SET_USER';
 export function receiveAuthResponse(res) {
   return {
     type: USER_LOGIN,
-    res,
+    res
   };
 }
 
 export function logout() {
   return {
-    type: USER_LOGOUT,
+    type: USER_LOGOUT
   };
 }
 
 export const login = (email, password) =>
   // console.log('test 123', JSON.stringify({ email, password }))
-  dispatch => fetch(`${HOST}login/auth`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  })
-    .then(response => response.json())
-    .then(json =>
-      // console.log('json', json)
-      dispatch(receiveAuthResponse(json.message || json)),
-    );
-
+  dispatch =>
+    fetch(`${HOST}login/auth`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    })
+      .then(response => response.json())
+      .then(json =>
+        // console.log('json', json)
+        dispatch(receiveAuthResponse(json.message || json))
+      );
 
 export const actions = {
   login,
-  logout,
+  logout
 };
 
 // -------------------------------------
@@ -63,7 +62,7 @@ const ACTION_HANDLERS = {
     } else if (action.res.id !== -1) {
       // action.res
       newState = action.res;
-      if (typeof (Storage) !== 'undefined') {
+      if (typeof Storage !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(action.res));
       }
     }
@@ -76,12 +75,12 @@ const ACTION_HANDLERS = {
     return nstate;
   },
   [USER_LOGOUT]: (state, action) => {
-    if (typeof (Storage) !== 'undefined') {
+    if (typeof Storage !== 'undefined') {
       localStorage.removeItem('user');
       localStorage.removeItem('key');
     }
     return initialState;
-  },
+  }
 };
 
 export default function userReducer(state = initialState, action) {
