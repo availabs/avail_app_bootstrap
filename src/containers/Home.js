@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { PageHeader, ListGroup, ListGroupItem } from "react-bootstrap";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { invokeApig } from '../libs/awsLib';
-import "./Home.css";
+import './Home.css';
 
 export default class Home extends Component {
   constructor(props) {
@@ -30,35 +30,37 @@ export default class Home extends Component {
   }
 
   notes() {
-    return invokeApig({ path: "/notes" });
+    return invokeApig({ path: '/notes' });
   }
 
   handleNoteClick = event => {
     event.preventDefault();
-    this.props.history.push(event.currentTarget.getAttribute("href"));
-  }
+    this.props.history.push(event.currentTarget.getAttribute('href'));
+  };
 
   renderNotesList(notes) {
     return [{}].concat(notes).map(
       (note, i) =>
-        i !== 0
-          ? <ListGroupItem
-              key={note.noteId}
-              href={`/notes/${note.noteId}`}
-              onClick={this.handleNoteClick}
-              header={note.content.trim().split("\n")[0]}
-            >
-              {"Created: " + new Date(note.createdAt).toLocaleString()}
-            </ListGroupItem>
-          : <ListGroupItem
-              key="new"
-              href="/notes/new"
-              onClick={this.handleNoteClick}
-            >
-              <h4>
-                <b>{"\uFF0B"}</b> Create a new note
-              </h4>
-            </ListGroupItem>
+        i !== 0 ? (
+          <ListGroupItem
+            key={note.noteId}
+            href={`/notes/${note.noteId}`}
+            onClick={this.handleNoteClick}
+            header={note.content.trim().split('\n')[0]}
+          >
+            {'Created: ' + new Date(note.createdAt).toLocaleString()}
+          </ListGroupItem>
+        ) : (
+          <ListGroupItem
+            key="new"
+            href="/notes/new"
+            onClick={this.handleNoteClick}
+          >
+            <h4>
+              <b>{'\uFF0B'}</b> Create a new note
+            </h4>
+          </ListGroupItem>
+        )
     );
   }
 
@@ -82,7 +84,7 @@ export default class Home extends Component {
   renderNotes() {
     return (
       <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+        <PageHeader>Notes Are Awesome</PageHeader>
         <ListGroup>
           {!this.state.isLoading && this.renderNotesList(this.state.notes)}
         </ListGroup>

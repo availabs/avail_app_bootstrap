@@ -1,6 +1,6 @@
 // This should be moved into a central config file.
 
-const HOST = 'http://localhost';
+const HOST = 'http://lor.availabs.org';
 const PORT = ':4000';
 const PATH = '/postgraphql.trafficData.graphql';
 
