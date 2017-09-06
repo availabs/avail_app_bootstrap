@@ -11,6 +11,14 @@ import Signup from './containers/Signup';
 import NewNote from './containers/NewNote';
 import NotFound from './containers/NotFound';
 import AllStationIDs from './containers/AllStationIDs';
+import AvgWdySpeedTableDescription from './containers/AvgWdySpeedTableDescription';
+import AvgWdyVehicleClassificationTableDescription from './containers/AvgWdyVehicleClassificationTableDescription';
+import AvgWdyVolumeTableDescription from './containers/AvgWdyVolumeTableDescription';
+import ShortCountSpeedTableDescription from './containers/ShortCountSpeedTableDescription';
+import ShortCountVehicleClassificationTableDescription from './containers/ShortCountVehicleClassificationTableDescription';
+import ShortCountVolumeTableDescription from './containers/ShortCountVolumeTableDescription';
+import ContinuousVehicleClassificationTableDescription from './containers/ContinuousVehicleClassificationTableDescription';
+import ContinuousVolumeTableDescription from './containers/ContinuousVolumeTableDescription';
 import StationInfo from './containers/StationInfo';
 
 export default ({ childProps }) => (
@@ -33,6 +41,54 @@ export default ({ childProps }) => (
       path="/all-station-ids/"
       exact
       component={AllStationIDs}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/avg-weekday-speed-table/"
+      exact
+      component={AvgWdySpeedTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/avg-weekday-vehicle-classification-table/"
+      exact
+      component={AvgWdyVehicleClassificationTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/avg-weekday-volume-table/"
+      exact
+      component={AvgWdyVolumeTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/short-count-speed-table/"
+      exact
+      component={ShortCountSpeedTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/short-count-vehicle-classification-table/"
+      exact
+      component={ShortCountVehicleClassificationTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/short-count-volume-table/"
+      exact
+      component={ShortCountVolumeTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/continuous-vehicle-classification-table/"
+      exact
+      component={ContinuousVehicleClassificationTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/continuous-volume-table/"
+      exact
+      component={ContinuousVolumeTableDescription}
       props={childProps}
     />
     <AuthenticatedRoute

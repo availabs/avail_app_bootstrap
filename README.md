@@ -13,6 +13,14 @@ sample routes:
 
 * http://localhost:3000/all-station-ids
 * http://localhost:3000/station-info/11_0009
+* http://localhost:3000/avg-weekday-speed-table
+* http://localhost:3000/avg-weekday-vehicle-classification-table
+* http://localhost:3000/avg-weekday-volume-table
+* http://localhost:3000/short-count-speed-table
+* http://localhost:3000/short-count-vehicle-classification-table
+* http://localhost:3000/short-count-volume-table
+* http://localhost:3000/continuous-vehicle-classification-table
+* http://localhost:3000/continuous-volume-table
 
 # Linting
 
