@@ -11,14 +11,14 @@ import Signup from './containers/Signup';
 import NotFound from './containers/NotFound';
 import AllStationIDs from './containers/AllStationIDs';
 import AllRegionNames from './containers/AllRegionNames';
-import AvgWdySpeedTableDescription from './containers/AvgWdySpeedTableDescription';
-import AvgWdyVehicleClassificationTableDescription from './containers/AvgWdyVehicleClassificationTableDescription';
-import AvgWdyVolumeTableDescription from './containers/AvgWdyVolumeTableDescription';
-import ShortCountSpeedTableDescription from './containers/ShortCountSpeedTableDescription';
-import ShortCountVehicleClassificationTableDescription from './containers/ShortCountVehicleClassificationTableDescription';
-import ShortCountVolumeTableDescription from './containers/ShortCountVolumeTableDescription';
-import ContinuousVehicleClassificationTableDescription from './containers/ContinuousVehicleClassificationTableDescription';
-import ContinuousVolumeTableDescription from './containers/ContinuousVolumeTableDescription';
+import AvgWdySpeedTableDescription from './containers/tableDescriptions/AvgWdySpeedTableDescription';
+import AvgWdyVehicleClassificationTableDescription from './containers/tableDescriptions/AvgWdyVehicleClassificationTableDescription';
+import AvgWdyVolumeTableDescription from './containers/tableDescriptions/AvgWdyVolumeTableDescription';
+import ShortCountSpeedTableDescription from './containers/tableDescriptions/ShortCountSpeedTableDescription';
+import ShortCountVehicleClassificationTableDescription from './containers/tableDescriptions/ShortCountVehicleClassificationTableDescription';
+import ShortCountVolumeTableDescription from './containers/tableDescriptions/ShortCountVolumeTableDescription';
+import ContinuousVehicleClassificationTableDescription from './containers/tableDescriptions/ContinuousVehicleClassificationTableDescription';
+import ContinuousVolumeTableDescription from './containers/tableDescriptions/ContinuousVolumeTableDescription';
 import StationInfo from './containers/StationInfo';
 
 export default ({ childProps }) => (

@@ -1,14 +1,14 @@
 import React from 'react';
-import './ShortCountVehicleClassificationTableDescription.css';
+import './ContinuousVehicleClassificationTableDescription.css';
 import { QueryRenderer, graphql } from 'react-relay';
-import relay from '../relay.js';
+import relay from '../../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
 
-export default function ShortCountVehicleClassificationTableDescription(props) {
+export default function ContinuousVehicleClassificationTableDescription(props) {
   const q = graphql`
-    query ShortCountVehicleClassificationTableDescriptionQuery {
-      __type(name: "ShortCountVehicleClassification") {
+    query ContinuousVehicleClassificationTableDescriptionQuery {
+      __type(name: "ContinuousVehicleClassification") {
         name
         description
         fields {
@@ -21,7 +21,7 @@ export default function ShortCountVehicleClassificationTableDescription(props) {
 
   return (
     <div>
-      <h1>Short Count Vehicle Classifications Table Description</h1>
+      <h1>Continuous Vehicle Classifications Table Description</h1>
       <QueryRenderer
         environment={relay}
         query={q}

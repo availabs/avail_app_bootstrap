@@ -1,14 +1,14 @@
 import React from 'react';
-import './ContinuousVolumeTableDescription.css';
+import './ShortCountVolumeTableDescription.css';
 import { QueryRenderer, graphql } from 'react-relay';
-import relay from '../relay.js';
+import relay from '../../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
 
-export default function ContinuousVolumeTableDescription(props) {
+export default function ShortCountVolumeTableDescription(props) {
   const q = graphql`
-    query ContinuousVolumeTableDescriptionQuery {
-      __type(name: "ContinuousVolume") {
+    query ShortCountVolumeTableDescriptionQuery {
+      __type(name: "ShortCountVolume") {
         name
         description
         fields {
@@ -21,7 +21,7 @@ export default function ContinuousVolumeTableDescription(props) {
 
   return (
     <div>
-      <h1>Continuous Volume Table Description</h1>
+      <h1>Short Count Volume Table Description</h1>
       <QueryRenderer
         environment={relay}
         query={q}

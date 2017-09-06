@@ -1,14 +1,14 @@
 import React from 'react';
-import './ShortCountVolumeTableDescription.css';
+import './AvgWdySpeedTableDescription.css';
 import { QueryRenderer, graphql } from 'react-relay';
-import relay from '../relay.js';
+import relay from '../../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
 
-export default function ShortCountVolumeTableDescription(props) {
+export default function AvgWdySpeedTableDescription(props) {
   const q = graphql`
-    query ShortCountVolumeTableDescriptionQuery {
-      __type(name: "ShortCountVolume") {
+    query AvgWdySpeedTableDescriptionQuery {
+      __type(name: "AverageWeekdaySpeed") {
         name
         description
         fields {
@@ -21,7 +21,7 @@ export default function ShortCountVolumeTableDescription(props) {
 
   return (
     <div>
-      <h1>Short Count Volume Table Description</h1>
+      <h1>Average Weekday Speeds Table Description</h1>
       <QueryRenderer
         environment={relay}
         query={q}
