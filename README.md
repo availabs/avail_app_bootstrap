@@ -1,3 +1,39 @@
+# Relay
+
+```
+npm install
+./relay-integration/installDependencies.js
+./relay-integration/installWatchman.sh
+./relay-integration/alterWebpack.js
+./relay-integration/downloadGraphQLSchema.js
+./relay-integration/compileGraphQLSchema.js
+```
+
+sample routes:
+
+* http://localhost:3000/all-station-ids
+* http://localhost:3000/all-region-names
+* http://localhost:3000/station-info/11_0009
+* http://localhost:3000/avg-weekday-speed-table
+* http://localhost:3000/avg-weekday-vehicle-classification-table
+* http://localhost:3000/avg-weekday-volume-table
+* http://localhost:3000/short-count-speed-table
+* http://localhost:3000/short-count-vehicle-classification-table
+* http://localhost:3000/short-count-volume-table
+* http://localhost:3000/continuous-vehicle-classification-table
+* http://localhost:3000/continuous-volume-table
+
+# Linting
+
+* [gaearon's words of wisdom](https://www.reddit.com/r/reactjs/comments/6p3398/totally_lost_on_createreactapp_with/dkmctwi/)
+* [Formatting Code Automatically](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#formatting-code-automatically)
+* [editor integration](https://babeljs.io/docs/editors)
+* [more editor integration](https://github.com/prettier/prettier/tree/master/editors)
+* [eslint config](https://github.com/facebookincubator/create-react-app/tree/664b7651ae6f4b003ffb0f7e43074c86533584e1/packages/eslint-config-react-app)
+
+
+-------
+
 # Serverless Stack Demo React App
 
 [Serverless Stack](http://serverless-stack.com) is a free comprehensive guide to creating full-stack serverless applications. We create a [note taking app](http://demo.serverless-stack.com) from scratch.
