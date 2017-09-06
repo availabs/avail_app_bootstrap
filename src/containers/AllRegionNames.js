@@ -1,5 +1,4 @@
 import React from 'react';
-import './AllRegionNames.css';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../relay.js';
 
