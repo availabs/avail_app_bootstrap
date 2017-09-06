@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHeader, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { invokeApig } from '../libs/awsLib';
 import './Home.css';
 
 export default class Home extends Component {
@@ -14,88 +12,58 @@ export default class Home extends Component {
     };
   }
 
-  async componentDidMount() {
-    if (!this.props.isAuthenticated) {
-      return;
-    }
-
-    // try {
-    //   const results = await this.notes();
-    //   this.setState({ notes: results });
-    // } catch (e) {
-    //   alert(e);
-    // }
-
-    this.setState({ isLoading: false });
-  }
-
-  notes() {
-    return invokeApig({ path: '/notes' });
-  }
-
-  handleNoteClick = event => {
-    event.preventDefault();
-    this.props.history.push(event.currentTarget.getAttribute('href'));
-  };
-
-  renderNotesList(notes) {
-    return [{}].concat(notes).map(
-      (note, i) =>
-        i !== 0 ? (
-          <ListGroupItem
-            key={note.noteId}
-            href={`/notes/${note.noteId}`}
-            onClick={this.handleNoteClick}
-            header={note.content.trim().split('\n')[0]}
-          >
-            {'Created: ' + new Date(note.createdAt).toLocaleString()}
-          </ListGroupItem>
-        ) : (
-          <ListGroupItem
-            key="new"
-            href="/notes/new"
-            onClick={this.handleNoteClick}
-          >
-            <h4>
-              <b>{'\uFF0B'}</b> Create a new note
-            </h4>
-          </ListGroupItem>
-        )
-    );
-  }
-
-  renderLander() {
-    return (
-      <div className="lander">
-        <h1>Scratch</h1>
-        <p>A simple note taking app</p>
-        <div>
-          <Link to="/login" className="btn btn-info btn-lg">
-            Login
-          </Link>
-          <Link to="/signup" className="btn btn-success btn-lg">
-            Signup
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  renderNotes() {
-    return (
-      <div className="notes">
-        <PageHeader>Notes Are Awesome</PageHeader>
-        <ListGroup>
-          {!this.state.isLoading && this.renderNotesList(this.state.notes)}
-        </ListGroup>
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className="Home">
-        {this.props.isAuthenticated ? this.renderNotes() : this.renderLander()}
+        <li>
+          <Link to="/all-station-ids">"/all-station-ids"</Link>
+        </li>
+        <li>
+          <Link to="/all-region-names/">"/all-region-names/"</Link>
+        </li>
+        <li>
+          <Link to="/avg-weekday-speed-table/">
+            "/avg-weekday-speed-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/avg-weekday-vehicle-classification-table/">
+            "/avg-weekday-vehicle-classification-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/avg-weekday-volume-table/">
+            "/avg-weekday-volume-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/short-count-speed-table/">
+            "/short-count-speed-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/short-count-vehicle-classification-table/">
+            "/short-count-vehicle-classification-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/short-count-volume-table/">
+            "/short-count-volume-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/continuous-vehicle-classification-table/">
+            "/continuous-vehicle-classification-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/continuous-volume-table/">
+            "/continuous-volume-table/"
+          </Link>
+        </li>
+        <li>
+          <Link to="/station-info/:rcStation">"/station-info/:rcStation"</Link>
+        </li>
       </div>
     );
   }

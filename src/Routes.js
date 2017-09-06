@@ -5,9 +5,9 @@ import UnauthenticatedRoute from './components/auth/UnauthenticatedRoute';
 
 import Home from './containers/Home';
 import Login from './containers/Login';
-import Notes from './containers/Notes';
+// import Notes from './containers/Notes';
 import Signup from './containers/Signup';
-import NewNote from './containers/NewNote';
+// import NewNote from './containers/NewNote';
 import NotFound from './containers/NotFound';
 import AllStationIDs from './containers/AllStationIDs';
 import AllRegionNames from './containers/AllRegionNames';
@@ -38,7 +38,7 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <AuthenticatedRoute
-      path="/"
+      path="/all-station-ids"
       exact
       component={AllStationIDs}
       props={childProps}
@@ -101,18 +101,6 @@ export default ({ childProps }) => (
       path="/station-info/:rcStation"
       exact
       component={StationInfo}
-      props={childProps}
-    />
-    <AuthenticatedRoute
-      path="/notes/new"
-      exact
-      component={NewNote}
-      props={childProps}
-    />
-    <AuthenticatedRoute
-      path="/notes/:id"
-      exact
-      component={Notes}
       props={childProps}
     />
     {/* Finally, catch all unmatched routes */}
