@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Nav, NavItem, Navbar } from 'react-bootstrap';
 import Routes from './Routes';
 import { login, logout } from './store/modules/user';

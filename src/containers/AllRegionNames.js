@@ -1,8 +1,7 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
+import { Link } from 'react-router-dom';
 import relay from '../relay.js';
-
-// https://github.com/facebook/relay/issues/1851
 
 export default function AllRegionNames(props) {
   const q = graphql`
@@ -28,7 +27,18 @@ export default function AllRegionNames(props) {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            return <div>{JSON.stringify(props, null, 4)}</div>;
+            const list = props.allNysdotRegionNames.edges
+              .reduce((acc, { node: n }) => {
+                console.log(n.name);
+                acc[n.region] = n.name;
+                return acc;
+              }, [])
+              .map((r, i) => (
+                <li>
+                  <Link to={`/region/${i}`}>{r} </Link>
+                </li>
+              ));
+            return <ol>{list}</ol>;
           }
           return <div>Loading</div>;
         }}

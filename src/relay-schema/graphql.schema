@@ -5208,6 +5208,31 @@ type Query implements Node {
   nysdotVehicleAxleCodeDescriptionByCode(code: NysdotVehicleAxleCode!): NysdotVehicleAxleCodeDescription
   nysdotVehicleAxleCodeDescriptionByDescription(description: String!): NysdotVehicleAxleCodeDescription
 
+  # Reads and enables pagination through a set of `RegionsToStation`.
+  allRegionsToStations(
+    # The method to use when ordering `RegionsToStation`.
+    orderBy: RegionsToStationsOrderBy = NATURAL
+
+    # Read all values in the set before (above) this cursor.
+    before: Cursor
+
+    # Read all values in the set after (below) this cursor.
+    after: Cursor
+
+    # Only read the first `n` values of the set.
+    first: Int
+
+    # Only read the last `n` values of the set.
+    last: Int
+
+    # Skip the first `n` values from our `after` cursor, an alternative to cursor
+    # based pagination. May not be used with `last`.
+    offset: Int
+
+    # A condition to be used in determining which values should be returned by the collection.
+    condition: RegionsToStationCondition
+  ): RegionsToStationsConnection
+
   # Reads and enables pagination through a set of `ShortCountSpeed`.
   allShortCountSpeeds(
     # The method to use when ordering `ShortCountSpeed`.
@@ -5314,6 +5339,61 @@ type Query implements Node {
 
   # The root query type must be a `Node` to work well with Relay 1 mutations. This just resolves to `query`.
   nodeId: ID!
+}
+
+# View that collects the station_ids for regions and the count type tables they occur in.
+type RegionsToStation {
+  region: Int
+  stationId: String
+  tableName: String
+}
+
+# A condition to be used against `RegionsToStation` object types. All fields are
+# tested for equality and combined with a logical ‘and.’
+input RegionsToStationCondition {
+  # Checks for equality with the object’s `region` field.
+  region: Int
+
+  # Checks for equality with the object’s `stationId` field.
+  stationId: String
+
+  # Checks for equality with the object’s `tableName` field.
+  tableName: String
+}
+
+# A connection to a list of `RegionsToStation` values.
+type RegionsToStationsConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # The count of *all* `RegionsToStation` you could get from the connection.
+  totalCount: Int
+
+  # A list of edges which contains the `RegionsToStation` and cursor to aid in pagination.
+  edges: [RegionsToStationsEdge]
+
+  # A list of `RegionsToStation` objects.
+  nodes: [RegionsToStation!]
+}
+
+# A `RegionsToStation` edge in the connection.
+type RegionsToStationsEdge {
+  # A cursor for use in pagination.
+  cursor: Cursor
+
+  # The `RegionsToStation` at the end of the edge.
+  node: RegionsToStation!
+}
+
+# Methods to use when ordering `RegionsToStation`.
+enum RegionsToStationsOrderBy {
+  NATURAL
+  REGION_ASC
+  REGION_DESC
+  STATION_ID_ASC
+  STATION_ID_DESC
+  TABLE_NAME_ASC
+  TABLE_NAME_DESC
 }
 
 # Fifteen Minute short count speed data by direction for a given Region and Year.

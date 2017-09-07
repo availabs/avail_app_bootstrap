@@ -20,6 +20,7 @@ import ShortCountVolumeTableDescription from './containers/tableDescriptions/Sho
 import ContinuousVehicleClassificationTableDescription from './containers/tableDescriptions/ContinuousVehicleClassificationTableDescription';
 import ContinuousVolumeTableDescription from './containers/tableDescriptions/ContinuousVolumeTableDescription';
 import StationInfo from './containers/StationInfo';
+import Region from './containers/Region';
 
 export default ({ childProps }) => (
   <Switch>
@@ -113,6 +114,12 @@ export default ({ childProps }) => (
       path="/station-info/:rcStation"
       exact
       component={StationInfo}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/region/:region"
+      exact
+      component={Region}
       props={childProps}
     />
     {/* Finally, catch all unmatched routes */}
