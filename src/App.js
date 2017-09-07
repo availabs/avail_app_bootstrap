@@ -12,13 +12,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticating: false
+      isAuthenticating: true
     };
   }
 
   //https://stackoverflow.com/a/38563897/3970755
   componentDidMount() {
-    console.log('===== App componentDidMount	 =====');
     if (typeof Storage !== 'undefined' && localStorage.getItem('user')) {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -26,10 +25,13 @@ class App extends Component {
         this.setState({ isAuthenticating: true });
         this.props.login(user);
       } catch (err) {
+        this.setState({ isAuthenticating: false });
         localStorage.removeItem('user');
         console.error(err);
       }
     }
+
+    this.setState({ isAuthenticating: false });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +44,9 @@ class App extends Component {
     if (this.state.isAuthenticating) {
       return <div>Authenticating user</div>;
     }
+
+    const childProps = { isAuthenticated: this.props.isAuthenticated };
+    console.log(childProps);
 
     return (
       <div className="App container">
@@ -69,7 +74,7 @@ class App extends Component {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        <Routes childProps={{ isAuthenticated: this.props.isAuthenticated }} />
+        <Routes childProps={childProps} />
       </div>
     );
   }

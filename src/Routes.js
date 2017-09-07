@@ -32,7 +32,7 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <UnauthenticatedRoute
-      path="/login/"
+      path="/login"
       exact
       component={Login}
       props={childProps}
@@ -57,6 +57,12 @@ export default ({ childProps }) => (
     />
     <AuthenticatedRoute
       path="/avg-weekday-speed-table/"
+      exact
+      component={AvgWdySpeedTableDescription}
+      props={childProps}
+    />
+    <AuthenticatedRoute
+      path="/avg-weekday-speed-table"
       exact
       component={AvgWdySpeedTableDescription}
       props={childProps}
