@@ -26,7 +26,13 @@ export default ({ childProps }) => (
     <AuthenticatedRoute path="/" exact component={Home} props={childProps} />
 
     <UnauthenticatedRoute
-      path="/login"
+      path="/login/"
+      exact
+      component={Login}
+      props={childProps}
+    />
+    <UnauthenticatedRoute
+      path="/login/"
       exact
       component={Login}
       props={childProps}

@@ -6,16 +6,6 @@ import rootReducer from './modules';
 
 export const history = createHistory();
 
-const initialState = { user: {} };
-if (typeof Storage !== 'undefined' && localStorage.getItem('user')) {
-  try {
-    initialState.user = JSON.parse(localStorage.getItem('user'));
-  } catch (err) {
-    localStorage.removeItem('user');
-    console.error(err);
-  }
-}
-
 const enhancers = [];
 const middleware = [thunk, routerMiddleware(history)];
 
@@ -29,6 +19,6 @@ if (process.env.NODE_ENV === 'development') {
 
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
-const store = createStore(rootReducer, initialState, composedEnhancers);
+const store = createStore(rootReducer, {}, composedEnhancers);
 
 export default store;

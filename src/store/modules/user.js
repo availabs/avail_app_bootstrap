@@ -1,18 +1,28 @@
+const deepFreeze = require('deep-freeze');
 const HOST = 'https://aauth.availabs.org/';
 
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const USER_LOGIN = 'USER_LOGIN';
-export const USER_LOGOUT = 'USER_LOGOUT';
-export const SET_USER = 'SET_USER';
+const USER_LOGIN = 'USER_LOGIN';
+const USER_LOGOUT = 'USER_LOGOUT';
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function receiveAuthResponse(res) {
+function receiveAuthResponse(res) {
   return {
     type: USER_LOGIN,
     res
+  };
+}
+
+function TODO_AuthServerVerifiesToken(email, token) {
+  return {
+    type: USER_LOGIN,
+    res: {
+      email,
+      token
+    } // temp hack till auth server takes tokens
   };
 }
 
@@ -22,22 +32,27 @@ export function logout() {
   };
 }
 
-export const login = (email, password) =>
-  // console.log('test 123', JSON.stringify({ email, password }))
-  dispatch =>
-    fetch(`${HOST}login/auth`, {
+export const login = ({ email, password, token }) => {
+  console.log('### Login Request ###');
+  console.log(email, password, token);
+  return dispatch => {
+    console.log('----- USER LOGIN -----');
+    if (email && token) {
+      return dispatch(TODO_AuthServerVerifiesToken(email, token));
+    }
+
+    return fetch(`${HOST}login/auth`, {
       method: 'POST',
       headers: {
         Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ email, password, token })
     })
       .then(response => response.json())
-      .then(json =>
-        // console.log('json', json)
-        dispatch(receiveAuthResponse(json.message || json))
-      );
+      .then(json => dispatch(receiveAuthResponse(json.message || json)));
+  };
+};
 
 export const actions = {
   login,
@@ -47,34 +62,32 @@ export const actions = {
 // -------------------------------------
 // Initial State
 // -------------------------------------
-const initialState = {};
+let initialState = deepFreeze({
+  authed: false,
+  attempts: 0
+});
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
   [USER_LOGIN]: (state, action) => {
-    let newState = Object.assign({}, state);
-    // console.log('login attempt', action.res)
-
+    // Not sure why, but state comes in as an empty object rather than the initialState.
+    let newState = Object.assign({}, initialState, state);
+    ++newState.attempts;
     if (action.res.type === 'error') {
       newState.error = action.res.text;
     } else if (action.res.id !== -1) {
+      console.log('authed');
       // action.res
-      newState = action.res;
+      newState = Object.assign({}, newState, action.res, { authed: true });
       if (typeof Storage !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(action.res));
       }
     }
-    return newState;
+    return deepFreeze(newState);
   },
-  [SET_USER]: (state, action) => {
-    let nstate = Object.assign({}, state);
-    nstate = action.payload;
-    console.log('<USER.js> Authed User added to store');
-    return nstate;
-  },
-  [USER_LOGOUT]: (state, action) => {
+  [USER_LOGOUT]: (state = initialState, action) => {
     if (typeof Storage !== 'undefined') {
       localStorage.removeItem('user');
       localStorage.removeItem('key');
