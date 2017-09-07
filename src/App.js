@@ -35,6 +35,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('where am i', this.props.location);
     if (nextProps.authAttempts) {
       this.setState({ isAuthenticating: false });
     }
@@ -81,13 +82,14 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('App mapStateToProps', !!state.user.authed);
+  console.log('App mapStateToProps', !!state.user.authed, state.routing);
   return {
     isAuthenticated: !!state.user.authed,
-    authAttempts: state.user.attempts
+    authAttempts: state.user.attempts,
+    routing: state.routing
   };
 };
 
 const mapDispatchToProps = { login, logout };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
+export default connect(mapStateToProps, mapDispatchToProps)(App);
