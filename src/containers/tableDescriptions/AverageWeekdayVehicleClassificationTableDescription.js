@@ -2,10 +2,14 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../../relay.js';
 
-export default function AvgWdyVolumeTableDescription(props) {
+// https://github.com/facebook/relay/issues/1851
+
+export default function AverageWeekdayVehicleClassificationTableDescription(
+  props
+) {
   const q = graphql`
-    query AvgWdyVolumeTableDescriptionQuery {
-      __type(name: "AverageWeekdayVolume") {
+    query AverageWeekdayVehicleClassificationTableDescriptionQuery {
+      __type(name: "AverageWeekdayVehicleClassification") {
         name
         description
         fields {
@@ -18,7 +22,7 @@ export default function AvgWdyVolumeTableDescription(props) {
 
   return (
     <div>
-      <h1>Average Weekday Volume Table Description</h1>
+      <h1>Average Weekday Vehicle Classification Table Description</h1>
       <QueryRenderer
         environment={relay}
         query={q}

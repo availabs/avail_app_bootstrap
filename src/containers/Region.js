@@ -1,5 +1,6 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
+import { Link } from 'react-router-dom';
 import relay from '../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
@@ -45,7 +46,18 @@ export default function Region(props) {
               .map(stationId =>
                 Array.prototype.concat(
                   <dt>{stationId}</dt>,
-                  d[stationId].sort().map(table => <dd>{table}</dd>)
+                  d[stationId].sort().map(table => (
+                    <dd>
+                      <Link
+                        to={`/${table.replace(
+                          /_/g,
+                          '-'
+                        )}-for-station/${stationId}`}
+                      >
+                        {table}
+                      </Link>
+                    </dd>
+                  ))
                 )
               );
             return (
