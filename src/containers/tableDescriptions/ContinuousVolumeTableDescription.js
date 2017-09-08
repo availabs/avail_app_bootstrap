@@ -28,7 +28,7 @@ export default function ContinuousVolumeTableDescription(props) {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            return <div>{JSON.stringify(props, null, 4)}</div>;
+            return <pre>{JSON.stringify(props, null, 4)}</pre>;
           }
           return <div>Loading</div>;
         }}
