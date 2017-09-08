@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Nav, NavItem, Navbar } from 'react-bootstrap';
 import Routes from './Routes';
 import { login, logout } from './store/modules/user';
@@ -50,39 +50,16 @@ class App extends Component {
     console.log(childProps);
 
     return (
-      <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">AVAIL</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullRight>
-              {this.props.isAuthenticated ? (
-                <NavItem onClick={this.props.logout}>Logout</NavItem>
-              ) : (
-                [
-                  <RouteNavItem key={1} href="/signup/">
-                    Signup
-                  </RouteNavItem>,
-                  <RouteNavItem key={2} href="/login/">
-                    Login
-                  </RouteNavItem>
-                ]
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
-        <Routes childProps={childProps} />
+      <div className="App container-fluid">
+        <div className="row">
+          <Routes childProps={childProps} />
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log('App mapStateToProps', !!state.user.authed, state.routing);
   return {
     isAuthenticated: !!state.user.authed,
     authAttempts: state.user.attempts,

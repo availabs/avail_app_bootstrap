@@ -61,38 +61,73 @@ class Login extends Component {
     }
   }
 
-  render() {
-    console.log(this.props);
+  renderLoginForm = () => {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password" bsSize="large">
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </FormGroup>
-          <LoaderButton
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-            isLoading={this.state.isLoading}
-            text="Login"
-            loadingText="Logging in…"
-          />
-        </form>
+        <div className="auth-box-w">
+          <div className="logo-w">
+            <a href="index.html">
+              <img alt src="/img/logo-big.png" />
+            </a>
+          </div>
+          <h4 className="auth-header">Login Form</h4>
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <label htmlFor>Username</label>
+              <input
+                id="email"
+                autoFocus
+                type="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                className="form-control login-form-control"
+                placeholder="Enter your username"
+              />
+              <div className="pre-icon os-icon os-icon-user-male-circle" />
+            </div>
+            <div className="form-group">
+              <label htmlFor>Password</label>
+              <input
+                value={this.state.password}
+                onChange={this.handleChange}
+                id="password"
+                type="password"
+                className="form-control login-form-control"
+                placeholder="Enter your password"
+                type="password"
+              />
+              <div className="pre-icon os-icon os-icon-fingerprint" />
+            </div>
+            <div className="buttons-w">
+              <LoaderButton
+                block
+                bsSize="large"
+                disabled={!this.validateForm()}
+                type="submit"
+                isLoading={this.state.isLoading}
+                text="Login"
+                loadingText="Logging in…"
+              />
+              <div className="form-check-inline">
+                <label className="form-check-label">
+                  <input className="form-check-input" type="checkbox" />Remember
+                  Me
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  };
+
+  render() {
+    return (
+      <div className="testimonials-w relative" id="sectionTestimonials">
+        <div className="fade4" />
+        <div className="testimonials-i">
+          <div className="os-container">{this.renderLoginForm()}</div>
+        </div>
       </div>
     );
   }
