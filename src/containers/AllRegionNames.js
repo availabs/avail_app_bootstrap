@@ -27,6 +27,7 @@ export default function AllRegionNames(props) {
             <div className="col-lg-7">
               <div className="element-wrapper">
                 <h6 className="element-header">Regions</h6>
+
                 <QueryRenderer
                   environment={relay}
                   query={q}
@@ -41,11 +42,41 @@ export default function AllRegionNames(props) {
                           return acc;
                         }, [])
                         .map((r, i) => (
-                          <li>
-                            <Link to={`/region/${i}`}>{r} </Link>
-                          </li>
+                          <Link to={`/region/${i}`}>
+                            <div className="project-box">
+                              <div className="project-head">
+                                <div className="project-title">
+                                  <h5>{r}</h5>
+                                </div>
+                              </div>
+                              <div className="project-info">
+                                <div className="row align-items-center">
+                                  <div className="col-sm-5">
+                                    <div className="row">
+                                      <div className="col-6">
+                                        <div className="el-tablo highlight">
+                                          <div className="label">
+                                            Open tasks
+                                          </div>
+                                          <div className="value">15</div>
+                                        </div>
+                                      </div>
+                                      <div className="col-6">
+                                        <div className="el-tablo highlight">
+                                          <div className="label">
+                                            Contributors
+                                          </div>
+                                          <div className="value">24</div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
                         ));
-                      return <ol>{list}</ol>;
+                      return <div className="project-list">{list}</div>;
                     }
                     return <div>Loading</div>;
                   }}
