@@ -4,10 +4,10 @@ import relay from '../../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
 
-export default function AvgWdyVehicleClassificationTableDescription(props) {
+export default function AverageWeekdaySpeedTableDescription(props) {
   const q = graphql`
-    query AvgWdyVehicleClassificationTableDescriptionQuery {
-      __type(name: "AverageWeekdayVehicleClassification") {
+    query AverageWeekdaySpeedTableDescriptionQuery {
+      __type(name: "AverageWeekdaySpeed") {
         name
         description
         fields {
@@ -20,7 +20,7 @@ export default function AvgWdyVehicleClassificationTableDescription(props) {
 
   return (
     <div>
-      <h1>Average Weekday Vehicle Classification Table Description</h1>
+      <h1>Average Weekday Speeds Table Description</h1>
       <QueryRenderer
         environment={relay}
         query={q}
