@@ -104,7 +104,7 @@ class SideNav extends Component {
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="/">
                   <i className="os-icon os-icon-others-43" />
                   <span>Notifications</span>
                 </a>
@@ -118,7 +118,7 @@ class SideNav extends Component {
             </ul>
             <div className="logged-user-avatar-info">
               <div className="avatar-w">
-                <img alt src="img/anon_user.png" />
+                <img alt="" src="img/anon_user.png" />
               </div>
               <div className="logged-user-info-w">
                 <div className="logged-user-name">{this.props.user.email}</div>
@@ -127,7 +127,7 @@ class SideNav extends Component {
             </div>
           </div>
           <div className="avatar-w">
-            <img alt src="img/anon_user.png" />
+            <img alt="" src="img/anon_user.png" />
           </div>
         </div>
       </div>
@@ -211,7 +211,7 @@ class SideNav extends Component {
       <div className="desktop-menu menu-side-compact-w menu-activated-on-hover color-scheme-dark">
         <div className="logo-w">
           <a className="logo" href="/">
-            <img src="img/logo.png" />
+            <img alt="" src="img/logo.png" />
           </a>
         </div>
         <div className="menu-and-user">

@@ -1,17 +1,17 @@
-@import "styles/os_icons";
-@import "styles/theme_variables";
-@import "styles/theme_mixins";
-@import "styles/bootstrap_variables";
+@import "styles/theme-variables";
+@import "styles/theme-mixins";
+@import "styles/bootstrap-override/variables";
 
 .menu-side-compact-w {
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
+  z-index: 200;
   background-color: $menu-side-compact-light-bg;
   box-shadow: $element-box-shadow;
   width: $menu-side-compact-width;
-  border-radius: $global-border-radius 0px 0px $global-border-radius;
+  // border-radius: $global-border-radius 0px 0px $global-border-radius;
   .logo-w {
     text-align: center;
     padding: 20px 1rem;

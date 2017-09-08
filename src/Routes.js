@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import AuthenticatedRoute from './components/auth/AuthenticatedRoute';
 import UnauthenticatedRoute from './components/auth/UnauthenticatedRoute';
 
-import Home from './containers/Home';
+// import Home from './containers/Home';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import NotFound from './containers/NotFound';
@@ -30,8 +30,6 @@ import Region from './containers/Region';
 
 export default ({ childProps }) => (
   <Switch>
-    <AuthenticatedRoute path="/" exact component={Home} props={childProps} />
-
     <UnauthenticatedRoute
       path="/login"
       exact
@@ -51,7 +49,7 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <AuthenticatedRoute
-      path="/all-region-names"
+      path="/"
       exact
       component={AllRegionNames}
       props={childProps}

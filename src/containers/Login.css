@@ -8,6 +8,10 @@
   }
 }
 
+body {
+  padding: 0px;
+}
+
 .login-form-control {
   background-color: transparent;
   border: none;
@@ -34,6 +38,8 @@
   min-height: 100vh;
   background-color: #0a1a3d;
   padding-bottom: 100px;
+  margin: -40px;
+  width: 120%;
   overflow: hidden;
 }
 .testimonials-w .testimonials-i {

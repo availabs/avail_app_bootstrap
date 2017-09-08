@@ -66,7 +66,7 @@ class Login extends Component {
         <div className="auth-box-w">
           <div className="logo-w">
             <a href="index.html">
-              <img alt src="/img/logo-big.png" />
+              <img alt="" src="/img/logo-big.png" />
             </a>
           </div>
           <h4 className="auth-header">Login Form</h4>
@@ -79,7 +79,7 @@ class Login extends Component {
                 type="email"
                 value={this.state.email}
                 onChange={this.handleChange}
-                className="form-control login-form-control"
+                className="login-form-control"
                 placeholder="Enter your username"
               />
               <div className="pre-icon os-icon os-icon-user-male-circle" />
@@ -91,9 +91,8 @@ class Login extends Component {
                 onChange={this.handleChange}
                 id="password"
                 type="password"
-                className="form-control login-form-control"
+                className="login-form-control"
                 placeholder="Enter your password"
-                type="password"
               />
               <div className="pre-icon os-icon os-icon-fingerprint" />
             </div>

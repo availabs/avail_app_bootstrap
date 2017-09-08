@@ -33,7 +33,6 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('where am i', this.props.location);
     if (nextProps.authAttempts) {
       this.setState({ isAuthenticating: false });
     }
@@ -50,16 +49,14 @@ class App extends Component {
       return (
         <div>
           <SideNav />
-          <div className="App container-fluid App-Auth">
-            <div className="row">
-              <Routes childProps={childProps} />
-            </div>
+          <div className="App App-Auth">
+            <Routes childProps={childProps} />
           </div>
         </div>
       );
     }
     return (
-      <div className="App container-fluid">
+      <div className="App ">
         <div className="row">
           <Routes childProps={childProps} />
         </div>

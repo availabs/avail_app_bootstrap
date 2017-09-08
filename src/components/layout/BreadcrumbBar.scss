@@ -1,0 +1,52 @@
+@import "styles/theme_variables";
+@import "styles/bootstrap_variables";
+
+.breadcrumb {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: #eceeef;
+  border-radius: 0.25rem; }
+  .breadcrumb::after {
+    display: block;
+    content: "";
+    clear: both; }
+
+.breadcrumb-item {
+  float: left; }
+  .breadcrumb-item + .breadcrumb-item::before {
+    display: inline-block;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    color: #636c72;
+    content: "/"; }
+  .breadcrumb-item + .breadcrumb-item:hover::before {
+    text-decoration: underline; }
+  .breadcrumb-item + .breadcrumb-item:hover::before {
+    text-decoration: none; }
+  .breadcrumb-item.active {
+    color: #636c72; }
+
+.breadcrumb {
+  list-style: none;
+  margin: 0px;
+  padding: 10px 30px 10px 30px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background-color: transparent;
+  li {
+    margin-bottom: 0px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: $font-size-base * 0.65;
+    font-family: $font-family-serif;
+    a {
+      color: $body-color;
+    }
+    span {
+      color: rgba(0,0,0,0.4);
+    }
+  }
+}
+.breadcrumbs + .content-box {
+  padding-top: 0px;
+}
