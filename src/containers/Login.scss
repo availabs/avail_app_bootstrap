@@ -1,0 +1,127 @@
+.Login {
+    padding: 30px 0;
+}
+
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+}
+
+
+
+.login-form-control {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  border-radius: 0;
+  outline: 0;
+  height: 2.1rem;
+  width: 100%;
+  font-size: 1rem;
+  box-shadow: none;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  transition: all .3s;
+}
+
+.login-form-control:focus {
+  border-color: #66afe9;
+  box-shadow: none;
+  outline: 0;
+}
+
+.testimonials-w {
+  min-height: 100vh;
+  //margin-top: -87px;
+  background-color: #0a1a3d;
+  padding-bottom: 100px;
+  //padding-top: 100px;
+  overflow: hidden;
+  .testimonials-i {
+    position: relative;
+    z-index: 2;
+  }
+
+}
+
+.fade4 {
+  position: fixed;
+  top: -130px;
+  left: 0px;
+  width: 800px;
+  height: 600px;
+  background-image: linear-gradient(-90deg, rgba(237,240,243,0) 0%, rgba(54, 51, 175, 0.57) 100%);
+  z-index: 1;
+  transform: translate(-360px, 0px) rotate(-45deg);
+  
+}
+.fade4::before {
+  content: "";
+  position: fixed;
+  right: 200px;
+  top: -200px;
+  width: 800px;
+  height: 600px;
+  background-image: linear-gradient(-90deg, rgba(227,231,248,0) 0%, rgba(236, 218, 255, 0.43) 100%);
+  z-index: -1;
+}
+
+.auth-box-w {
+  max-width: 450px;
+  margin: 0px auto;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.1); }
+  .auth-box-w.wider {
+    max-width: 500px; }
+  .auth-box-w .logged-user-w {
+    padding-top: 0px;
+    padding-bottom: 10px; }
+  .auth-box-w .logo-w {
+    text-align: center;
+    padding: 20%; }
+  .auth-box-w .auth-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    padding-left: 80px; }
+    .auth-box-w .auth-header:after {
+      content: "";
+      background-color: #047bf8;
+      width: 32px;
+      height: 7px;
+      border-radius: 2px;
+      display: block;
+      position: absolute;
+      bottom: -4px;
+      left: 80px; }
+  .auth-box-w form {
+    padding: 20px 80px;
+    padding-bottom: 60px; }
+    .auth-box-w form .form-check-inline {
+      margin-left: 1rem; }
+    .auth-box-w form .form-group {
+      position: relative; }
+      .auth-box-w form .form-group .pre-icon {
+        position: absolute;
+        bottom: 5px;
+        font-size: 24px;
+        color: #047bf8;
+        left: -38px; }
+  .auth-box-w .buttons-w {
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05); }
+  .auth-box-w.centered {
+    text-align: center; }
+    .auth-box-w.centered .auth-header {
+      padding-left: 0px; }
+      .auth-box-w.centered .auth-header:after {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+        left: 50%; }
