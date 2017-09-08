@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Nav, NavItem, Navbar } from 'react-bootstrap';
 import Routes from './Routes';
 import { login, logout } from './store/modules/user';
+import SideNav from './components/SideNav/SideNav';
 import { connect } from 'react-redux';
 
-import RouteNavItem from './components/RouteNavItem';
 import './App.css';
 
 class App extends Component {
@@ -48,7 +46,18 @@ class App extends Component {
 
     const childProps = { isAuthenticated: this.props.isAuthenticated };
     console.log(childProps);
-
+    if (this.props.isAuthenticated) {
+      return (
+        <div>
+          <SideNav />
+          <div className="App container-fluid App-Auth">
+            <div className="row">
+              <Routes childProps={childProps} />
+            </div>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="App container-fluid">
         <div className="row">

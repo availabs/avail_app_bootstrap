@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import deepEqual from 'deep-equal';
 import queryString from 'query-string';
 import LoaderButton from '../components/LoaderButton';
@@ -136,7 +135,7 @@ class Login extends Component {
 const mapDispatchToProps = { login };
 
 const mapStateToProps = state => {
-  console.log('Login mapStateToProps', !!state.user.authed);
+  console.log('Login mapStateToProps', state.user);
   return {
     isAuthenticated: !!state.user.authed,
     attempts: state.user.attempts // so componentWillReceiveProps will get called.
