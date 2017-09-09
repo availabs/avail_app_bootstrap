@@ -1,9 +1,23 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
+import { Link } from 'react-router-dom';
 import relay from '../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
 // http://ftp.dot.ny.gov/tdv/YR2010/Other/Class/R01/11_Albany/11_0009_ClassAverageReport.pdf
+
+const locDataCols = [
+  'stationId',
+  'latitude',
+  'longitude',
+  'region',
+  'regionCode',
+  'countyCode',
+  'muni',
+  'tdvRoute',
+  'begindesc',
+  'enddesc'
+];
 
 export default function StationInfo(props) {
   const q = graphql`
@@ -55,6 +69,15 @@ export default function StationInfo(props) {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
+            const locData = props.allStationLocationData.edges[0].node;
+
+            const locDataDL = locDataCols.map(col => (
+              <tr>
+                <th>{col}</th>
+                <td>{locData[col]}</td>
+              </tr>
+            ));
+
             const info = props.allStationMetadata.edges.reduce(
               (acc, { node: n }) => {
                 const { tableName, count, minDate, maxDate } = n;
@@ -84,14 +107,43 @@ export default function StationInfo(props) {
               return acc;
             }, {});
 
+            const tablesInfo = Object.keys(summary)
+              .sort()
+              .map(tableName => (
+                <table>
+                  <tr>
+                    <th>
+                      <Link
+                        to={`/${tableName.replace(
+                          /_/g,
+                          '-'
+                        )}-for-station/${stationId}`}
+                      >
+                        {tableName}
+                      </Link>
+                    </th>
+                  </tr>
+                  <tr>
+                    <th>Number of records</th>
+                    <td>{summary[tableName].count}</td>
+                  </tr>
+                  <tr>
+                    <th>Earliest Record</th>
+                    <td>{summary[tableName].minDate}</td>
+                  </tr>
+                  <tr>
+                    <th>Latest Record</th>
+                    <td>{summary[tableName].maxDate}</td>
+                  </tr>
+                </table>
+              ));
+
             return (
               <div>
-                <h1>allStationLocationData</h1>
-                <pre>
-                  {JSON.stringify(props.allStationLocationData.edges, null, 4)}
-                </pre>
-                <h1>allStationMetadata</h1>
-                <pre>{JSON.stringify(summary, null, 4)}</pre>
+                <h2>Station Location Data</h2>
+                <table>{locDataDL}</table>
+                <h2>Data</h2>
+                {tablesInfo}
               </div>
             );
           }
