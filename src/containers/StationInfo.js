@@ -19,6 +19,16 @@ const locDataCols = [
   'enddesc'
 ];
 
+//https://stackoverflow.com/a/5786281/3970755
+function ConvertDDToDMS(D, lng) {
+  return {
+    dir: D < 0 ? (lng ? 'W' : 'S') : lng ? 'E' : 'N',
+    deg: 0 | (D < 0 ? (D = -D) : D),
+    min: 0 | ((D % 1) * 60),
+    sec: (0 | (((D * 60) % 1) * 6000)) / 100
+  };
+}
+
 export default function StationInfo(props) {
   const q = graphql`
     query StationInfoQuery(
@@ -77,6 +87,23 @@ export default function StationInfo(props) {
                 <td>{locData[col]}</td>
               </tr>
             ));
+
+            if (locData.latitude) {
+              const lat = ConvertDDToDMS(locData.latitude);
+              const lon = ConvertDDToDMS(locData.longitude, true);
+              locDataDL.push(
+                <tr>
+                  <th>
+                    <a
+                      href={`https://www.google.com/maps/place/${lat.deg}°${lat.min}'${lat.sec}"${lat.dir}+${lon.deg}°${lon.min}'${lon.sec}"${lon.dir}`}
+                      rel="external nofollow"
+                    >
+                      google maps
+                    </a>
+                  </th>
+                </tr>
+              );
+            }
 
             const info = props.allStationMetadata.edges.reduce(
               (acc, { node: n }) => {

@@ -3,12 +3,24 @@ import { QueryRenderer, graphql } from 'react-relay';
 import { Link } from 'react-router-dom';
 import relay from '../relay.js';
 
-// https://github.com/facebook/relay/issues/1851
-
 export default function Region(props) {
   const q = graphql`
-    query RegionStationsQuery($condition: RegionsToStationCondition!) {
-      allRegionsToStations(condition: $condition) {
+    query RegionStationsQuery(
+      $locCond: StationLocationDatumCondition!
+      $regCond: RegionsToStationCondition!
+    ) {
+      allStationLocationData(condition: $locCond) {
+        edges {
+          node {
+            stationId
+            muni
+            tdvRoute
+            begindesc
+            enddesc
+          }
+        }
+      }
+      allRegionsToStations(condition: $regCond) {
         edges {
           node {
             stationId
@@ -27,12 +39,11 @@ export default function Region(props) {
       <QueryRenderer
         environment={relay}
         query={q}
-        variables={{ condition: { region } }}
+        variables={{ locCond: { region }, regCond: { region } }}
         render={({ error, props }) => {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            // const d = props.allRegionsToStations.edges;
             const d = props.allRegionsToStations.edges.reduce(
               (acc, { node: n }) => {
                 (acc[n.stationId] || (acc[n.stationId] = [])).push(n.tableName);
@@ -41,29 +52,30 @@ export default function Region(props) {
               {}
             );
 
+            const stationLocations = props.allStationLocationData.edges.reduce(
+              (acc, { node: n }) => {
+                acc[n.stationId] = n.tdvRoute
+                  ? `${n.muni}: ${n.tdvRoute} from ${n.begindesc} to ${n.enddesc}`
+                  : '';
+                return acc;
+              },
+              {}
+            );
+
             const list = Object.keys(d)
               .sort()
-              .map(stationId =>
-                Array.prototype.concat(
-                  <dt>{stationId}</dt>,
-                  d[stationId].sort().map(table => (
-                    <dd>
-                      <Link
-                        to={`/${table.replace(
-                          /_/g,
-                          '-'
-                        )}-for-station/${stationId}`}
-                      >
-                        {table}
-                      </Link>
-                    </dd>
-                  ))
-                )
-              );
+              .map(stationId => (
+                <tr>
+                  <th>
+                    <Link to={`/station-info/${stationId}`}>{stationId}</Link>
+                  </th>
+                  <td>{stationLocations[stationId]}</td>
+                </tr>
+              ));
             return (
               <div>
                 <h1>{Object.keys(props)}</h1>
-                <dl>{list}</dl>
+                <table>{list}</table>
               </div>
             );
           }
