@@ -20,3 +20,4 @@ yarn-error.log*
 src/**/*.css
 
 **/__generated__/
+**/graphql.schema
