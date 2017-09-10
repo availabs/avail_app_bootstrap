@@ -5,6 +5,12 @@ import relay from '../relay.js';
 
 const defaultNestingOrder = ['countyCode', 'functionalClass', 'factorGroup']; //allow hierarchy by factorGroup via toggle
 
+const sorters = {
+  functionalClass: (a, b) => +a - +b,
+  countyCode: null,
+  factorGroup: null
+};
+
 const q = graphql`
   query RegionStationsQuery(
     $ctyCond: NysCountyCondition!
@@ -171,7 +177,7 @@ export default function Region(props) {
             return (
               <ul>
                 {Object.keys(stationData)
-                  .sort()
+                  .sort(sorters[primary])
                   .reduce((accP, primaryKey) => {
                     const secondaryLevel = stationData[primaryKey];
                     accP.push(
@@ -179,7 +185,7 @@ export default function Region(props) {
                         <h3>{decoder[primary][primaryKey]}</h3>
                         <ul>
                           {Object.keys(secondaryLevel)
-                            .sort()
+                            .sort(sorters[secondary])
                             .reduce((accS, secondaryKey) => {
                               const tertiaryLevel =
                                 secondaryLevel[secondaryKey];
@@ -188,7 +194,7 @@ export default function Region(props) {
                                   <h4>{decoder[secondary][secondaryKey]}</h4>
                                   <ul>
                                     {Object.keys(tertiaryLevel)
-                                      .sort()
+                                      .sort(sorters[tertiary])
                                       .reduce((accT, tertiaryKey) => {
                                         const stationsInfo =
                                           tertiaryLevel[tertiaryKey];
