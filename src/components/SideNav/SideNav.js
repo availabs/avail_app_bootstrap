@@ -11,7 +11,7 @@ const menus = [
     link: '/'
   },
   {
-    icon: 'os-icon-hierarchy-structure-1',
+    icon: 'os-icon-hierarchy-structure-2',
     title: 'Map',
     link: '/map'
   },
