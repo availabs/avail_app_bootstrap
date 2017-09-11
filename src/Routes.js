@@ -159,6 +159,12 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <AuthenticatedRoute
+      path="/station-info/:stationId/:countType"
+      exact
+      component={StationInfo}
+      props={childProps}
+    />
+    <AuthenticatedRoute
       path="/region/:region"
       exact
       component={Region}
