@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { login, logout } from '../../store/modules/user';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import './SideNav.css';
+
 const menus = [
   {
     icon: 'os-icon-window-content',
@@ -151,6 +151,7 @@ class SideNav extends Component {
       if (!menu.subMenus) {
         return (
           <li
+            key={'menuItem_' + index}
             className="has-sub-menu"
             id={'menuItem_' + index}
             onMouseOver={this.menuMouseOver}
@@ -166,6 +167,7 @@ class SideNav extends Component {
       }
       return (
         <li
+          key={'menuItem_' + index}
           className="has-sub-menu"
           id={'menuItem_' + index}
           onMouseOver={this.menuMouseOver}
@@ -186,12 +188,16 @@ class SideNav extends Component {
               onMouseOver={this.menuMouseOver}
               onMouseOut={this.menuMouseOut}
             >
-              {menu.subMenus.map(subMenu => {
+              {menu.subMenus.map((subMenu, sindex) => {
                 return (
-                  <ul className="sub-menu" id={'subMenu_' + index}>
-                    {subMenu.map(item => {
+                  <ul
+                    className="sub-menu"
+                    key={'subMenu_' + sindex}
+                    id={'subMenu_' + index}
+                  >
+                    {subMenu.map((item, ssindex) => {
                       return (
-                        <li>
+                        <li key={ssindex}>
                           <Link to={item.link}>{item.name}</Link>
                         </li>
                       );
