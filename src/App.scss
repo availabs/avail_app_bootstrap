@@ -8,6 +8,44 @@
 	margin-left: 90px;
 }
 
+.Map {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-left:90px;
+    width:100%;
+    position:fixed;
+    height:100%
+}
+.Map-Overlay {
+    top:0;
+    bottom:0;
+    left:0;
+    margin-left:90px;
+    width:200px;
+    position:fixed;
+    z-index: 100
+}
+
+.color-scheme-dark {
+    color: rgba(255, 255, 255, 0.9);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3D4D75), to(#31395B));
+    background-image: -webkit-linear-gradient(top, #3D4D75 0%, #31395B 100%);
+    background-image: -o-linear-gradient(top, #3D4D75 0%, #31395B 100%);
+    background-image: linear-gradient(to bottom, #3D4D75 0%, #31395B 100%);
+    background-repeat: repeat-x;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1c4cc3), to(#0f296a));
+    background-image: -webkit-linear-gradient(top, #1c4cc3 0%, #0f296a 100%);
+    background-image: -o-linear-gradient(top, #1c4cc3 0%, #0f296a 100%);
+    background-image: linear-gradient(to bottom, #1c4cc3 0%, #0f296a 100%);
+    background-repeat: repeat-x;
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
 .App .navbar-brand {
   font-weight: bold;
 }

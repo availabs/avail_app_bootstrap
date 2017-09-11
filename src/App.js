@@ -45,6 +45,18 @@ class App extends Component {
 
     const childProps = { isAuthenticated: this.props.isAuthenticated };
     console.log(childProps);
+    console.log('<rootProps>', this.props);
+    if (this.props.routing.location.pathname === '/map') {
+      return (
+        <div>
+          <SideNav />
+          <div className="Map">
+            <Routes childProps={childProps} />
+          </div>
+        </div>
+      );
+    }
+
     if (this.props.isAuthenticated) {
       return (
         <div>
