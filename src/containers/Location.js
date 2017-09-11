@@ -1,4 +1,31 @@
 import React, { Component } from 'react';
+import { QueryRenderer, graphql } from 'react-relay';
+import relay from '../relay.js';
+
+function parser(d) {
+  const { searchNNearestShortCountStations: nNearestStationsResult } = d;
+
+  const nNearestStations = nNearestStationsResult.edges.reduce(
+    (acc, { node: n }) => {
+      acc.push(n);
+      return acc;
+    },
+    []
+  );
+
+  return { nNearestStations };
+}
+
+const q = graphql`
+  query LocationNearestStationsQuery($qLon: Float, $qLat: Float) {
+    searchNNearestShortCountStations(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node
+      }
+    }
+  }
+`;
+
 class Location extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +69,27 @@ class Location extends Component {
                       <td>{this.state.longitude}</td>
                     </tr>
                   </table>
+
+                  <QueryRenderer
+                    environment={relay}
+                    query={q}
+                    variables={{
+                      qLon: this.state.longitude,
+                      qLat: this.state.latitude
+                    }}
+                    render={({ error, props }) => {
+                      if (error) {
+                        return <div>{error.message}</div>;
+                      } else if (props) {
+                        const { nNearestStations } = parser(props);
+
+                        return (
+                          <pre>{JSON.stringify(nNearestStations, null, 4)}</pre>
+                        );
+                      }
+                      return <div>Loading</div>;
+                    }}
+                  />
                 </div>
               </div>
             </div>
