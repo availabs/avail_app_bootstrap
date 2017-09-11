@@ -17,8 +17,6 @@ const q = graphql`
     $ctyCond: NysCountyCondition!
     $metaCond: StationMetadatumCondition!
     $locCond: StationLocationDatumCondition!
-    $regCond: RegionStationsCountCondition!
-    $countsCond: RegionCountsPerYearCondition!
   ) {
     allNysdotSeasonalAdjustmentFactorGroupDescriptions {
       edges {
@@ -67,23 +65,6 @@ const q = graphql`
         }
       }
     }
-    allRegionStationsCounts(condition: $regCond) {
-      edges {
-        node {
-          stationsCount
-          countType
-        }
-      }
-    }
-    allRegionCountsPerYears(condition: $countsCond) {
-      edges {
-        node {
-          year
-          countType
-          totalCounts
-        }
-      }
-    }
   }
 `;
 
@@ -93,9 +74,7 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     allNysdotFunctionalClassificationCodeDescriptions: functionalClassifications,
     allNysCounties: counties,
     allStationLocationData: stationLocationData,
-    allStationMetadata: stationMetadata,
-    allRegionStationsCounts: regionStationsCounts,
-    allRegionCountsPerYears: regionCountsPerYear
+    allStationMetadata: stationMetadata
   } = d;
 
   const decoder = {
@@ -164,24 +143,7 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     return acc;
   }, {});
 
-  const regionStationsCount = regionStationsCounts.edges.reduce(
-    (acc, { node: n }) => {
-      acc[n.countType] = n.stationsCount;
-      return acc;
-    },
-    {}
-  );
-
-  const regionYearlyCounts = regionCountsPerYear.edges.reduce(
-    (acc, { node: n }) => {
-      (acc[n.year] || (acc[n.year] = {}))[n.countType] = n.totalCounts;
-
-      return acc;
-    },
-    {}
-  );
-
-  return { decoder, stationData, regionStationsCount, regionYearlyCounts };
+  return { decoder, stationData };
 }
 
 export default function Region(props) {
@@ -222,22 +184,14 @@ export default function Region(props) {
                     if (error) {
                       return <div>{error.message}</div>;
                     } else if (props) {
-                      const {
-                        decoder,
-                        stationData,
-                        regionStationsCount,
-                        regionYearlyCounts
-                      } = parser(props, nestingOrder);
+                      const { decoder, stationData } = parser(
+                        props,
+                        nestingOrder
+                      );
 
                       // Ummm... yeah... I know.
                       return (
                         <div>
-                          <pre>
-                            {JSON.stringify(regionStationsCount, null, 4)}
-                          </pre>
-                          <pre>
-                            {JSON.stringify(regionYearlyCounts, null, 4)}
-                          </pre>
                           <ul>
                             {Object.keys(stationData)
                               .sort(sorters[primary])

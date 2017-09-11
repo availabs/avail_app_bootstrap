@@ -4,20 +4,67 @@ import { Link } from 'react-router-dom';
 import BreadcrumbBar from '../components/layout/BreadcrumbBar';
 import relay from '../relay.js';
 
-export default function AllRegionNames(props) {
-  const q = graphql`
-    query AllRegionNamesQuery {
-      allNysdotRegionNames {
-        edges {
-          node {
-            region
-            name
-          }
+function parser(d) {
+  const {
+    allRegionStationsCounts: regionStationsCounts,
+    allRegionCountsPerYears: regionCountsPerYear
+  } = d;
+
+  const regionStationsCount = regionStationsCounts.edges.reduce(
+    (acc, { node: n }) => {
+      const r = acc[n.region] || (acc[n.region] = {});
+      r[n.countType] = n.stationsCount;
+      return acc;
+    },
+    {}
+  );
+
+  const regionYearlyCounts = regionCountsPerYear.edges.reduce(
+    (acc, { node: n }) => {
+      const r = acc[n.region] || (acc[n.region] = {});
+      (r[n.year] || (r[n.year] = {}))[n.countType] = n.totalCounts;
+
+      return acc;
+    },
+    {}
+  );
+
+  return { regionStationsCount, regionYearlyCounts };
+}
+
+const q = graphql`
+  query AllRegionNamesQuery {
+    allNysdotRegionNames {
+      edges {
+        node {
+          region
+          name
         }
       }
     }
-  `;
+    allRegionStationsCounts {
+      edges {
+        node {
+          region
+          stationsCount
+          countType
+        }
+      }
+    }
+    allRegionCountsPerYears {
+      edges {
+        node {
+          region
+          year
+          countType
+          totalCounts
+        }
+      }
+    }
+  }
+`;
 
+export default function AllRegionNames(props) {
   return (
     <div className="content-w">
       <BreadcrumbBar items={[{ text: 'Regions', link: '/' }]} />
@@ -35,22 +82,42 @@ export default function AllRegionNames(props) {
                     if (error) {
                       return <div>{error.message}</div>;
                     } else if (props) {
+                      const {
+                        regionStationsCount,
+                        regionYearlyCounts
+                      } = parser(props);
+                      console.log(regionStationsCount);
                       const list = props.allNysdotRegionNames.edges
                         .reduce((acc, { node: n }) => {
                           console.log(n.name);
-                          acc[n.region] = n.name;
+                          acc.push(n);
                           return acc;
                         }, [])
-                        .map((r, i) => (
+                        .map(({ region, name }) => (
                           <div className="project-box">
                             <div className="project-head">
                               <div className="project-title">
-                                <Link to={`/region/${i}`}>
-                                  <h5>{r}</h5>
+                                <Link to={`/region/${region}`}>
+                                  <h5>{name}</h5>
                                 </Link>
                               </div>
                             </div>
                             <div className="project-info">
+                              <pre>
+                                {JSON.stringify(
+                                  regionStationsCount[region],
+                                  null,
+                                  4
+                                )}
+                              </pre>
+                              <pre>
+                                {JSON.stringify(
+                                  regionYearlyCounts[region],
+                                  null,
+                                  4
+                                )}
+                              </pre>
+
                               <div className="row align-items-center">
                                 <div className="col-sm-5">
                                   <div className="row">
