@@ -219,7 +219,7 @@ export default function StationInfo(props) {
                             Station ID: {stationId}
                           </h6>
                           {typeNav}
-                          <div className="element-box">{dataView}</div>
+                          {dataView}
                         </div>
                       </div>
                       <div className="col-lg-4">
