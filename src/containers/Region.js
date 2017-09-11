@@ -18,6 +18,7 @@ const q = graphql`
     $metaCond: StationMetadatumCondition!
     $locCond: StationLocationDatumCondition!
     $regCond: RegionStationsCountCondition!
+    $countsCond: RegionCountsPerYearCondition!
   ) {
     allNysdotSeasonalAdjustmentFactorGroupDescriptions {
       edges {
@@ -74,6 +75,15 @@ const q = graphql`
         }
       }
     }
+    allRegionCountsPerYears(condition: $countsCond) {
+      edges {
+        node {
+          year
+          countType
+          totalCounts
+        }
+      }
+    }
   }
 `;
 
@@ -84,7 +94,8 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     allNysCounties: counties,
     allStationLocationData: stationLocationData,
     allStationMetadata: stationMetadata,
-    allRegionStationsCounts: regionStationsCounts
+    allRegionStationsCounts: regionStationsCounts,
+    allRegionCountsPerYears: regionCountsPerYear
   } = d;
 
   const decoder = {
@@ -161,9 +172,16 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     {}
   );
 
-  console.log(stationData);
+  const regionYearlyCounts = regionCountsPerYear.edges.reduce(
+    (acc, { node: n }) => {
+      (acc[n.year] || (acc[n.year] = {}))[n.countType] = n.totalCounts;
 
-  return { decoder, stationData, regionStationsCount };
+      return acc;
+    },
+    {}
+  );
+
+  return { decoder, stationData, regionStationsCount, regionYearlyCounts };
 }
 
 export default function Region(props) {
@@ -197,7 +215,8 @@ export default function Region(props) {
                     locCond: cond,
                     metaCond: cond,
                     ctyCond: cond,
-                    regCond: cond
+                    regCond: cond,
+                    countsCond: cond
                   }}
                   render={({ error, props }) => {
                     if (error) {
@@ -206,7 +225,8 @@ export default function Region(props) {
                       const {
                         decoder,
                         stationData,
-                        regionStationsCount
+                        regionStationsCount,
+                        regionYearlyCounts
                       } = parser(props, nestingOrder);
 
                       // Ummm... yeah... I know.
@@ -214,6 +234,9 @@ export default function Region(props) {
                         <div>
                           <pre>
                             {JSON.stringify(regionStationsCount, null, 4)}
+                          </pre>
+                          <pre>
+                            {JSON.stringify(regionYearlyCounts, null, 4)}
                           </pre>
                           <ul>
                             {Object.keys(stationData)
