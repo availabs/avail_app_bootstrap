@@ -17,7 +17,6 @@ const q = graphql`
     $ctyCond: NysCountyCondition!
     $metaCond: StationMetadatumCondition!
     $locCond: StationLocationDatumCondition!
-    $regCond: RegionMetadatumCondition!
   ) {
     allNysdotSeasonalAdjustmentFactorGroupDescriptions {
       edges {
@@ -66,19 +65,6 @@ const q = graphql`
         }
       }
     }
-    allRegionMetadata(condition: $regCond) {
-      edges {
-        node {
-          stationCount
-          countType
-          countyCode
-          functionalClass
-          factorGroup
-          minDate
-          maxDate
-        }
-      }
-    }
   }
 `;
 
@@ -88,8 +74,7 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     allNysdotFunctionalClassificationCodeDescriptions: functionalClassifications,
     allNysCounties: counties,
     allStationLocationData: stationLocationData,
-    allStationMetadata: stationMetadata,
-    allRegionMetadata: regionMetadata
+    allStationMetadata: stationMetadata
   } = d;
 
   const decoder = {
@@ -158,29 +143,7 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     return acc;
   }, {});
 
-  const regionData = regionMetadata.edges.reduce((acc, { node: n }) => {
-    const [primary, secondary, tertiary] = [
-      n[nestingOrder[0]],
-      n[nestingOrder[1]],
-      n[nestingOrder[2]]
-    ];
-
-    const c = acc[n.countType] || (acc[n.countType] = {});
-    const p = c[primary] || (c[primary] = {});
-    const s = p[secondary] || (p[secondary] = {});
-
-    s[tertiary] = {
-      stationCount: n.stationCount,
-      minDate: n.minDate,
-      maxDate: n.maxDate
-    };
-
-    return acc;
-  }, {});
-
-  console.log(stationData);
-
-  return { decoder, stationData, regionData };
+  return { decoder, stationData };
 }
 
 export default function Region(props) {
@@ -214,13 +177,14 @@ export default function Region(props) {
                     locCond: cond,
                     metaCond: cond,
                     ctyCond: cond,
-                    regCond: cond
+                    regCond: cond,
+                    countsCond: cond
                   }}
                   render={({ error, props }) => {
                     if (error) {
                       return <div>{error.message}</div>;
                     } else if (props) {
-                      const { decoder, stationData, regionData } = parser(
+                      const { decoder, stationData } = parser(
                         props,
                         nestingOrder
                       );
@@ -228,133 +192,6 @@ export default function Region(props) {
                       // Ummm... yeah... I know.
                       return (
                         <div>
-                          <h2>Region Metadata</h2>
-                          <ul>
-                            {Object.keys(regionData)
-                              .sort()
-                              .reduce((accT, countType) => {
-                                const primaryLevel = regionData[countType];
-                                accT.push(
-                                  <li>
-                                    <h3>{countType}</h3>
-                                    <ul>
-                                      {Object.keys(primaryLevel)
-                                        .sort()
-                                        .reduce((accP, primaryKey) => {
-                                          const secondaryLevel =
-                                            primaryLevel[primaryKey];
-                                          accP.push(
-                                            <li>
-                                              <h4>
-                                                {decoder[primary][primaryKey]}
-                                              </h4>
-                                              <ul>
-                                                {Object.keys(secondaryLevel)
-                                                  .sort(sorters[secondary])
-                                                  .reduce(
-                                                    (accS, secondaryKey) => {
-                                                      const tertiaryLevel =
-                                                        secondaryLevel[
-                                                          secondaryKey
-                                                        ];
-                                                      accS.push(
-                                                        <li>
-                                                          <h5>
-                                                            {
-                                                              decoder[
-                                                                secondary
-                                                              ][secondaryKey]
-                                                            }
-                                                          </h5>
-                                                          <ul>
-                                                            {Object.keys(
-                                                              tertiaryLevel
-                                                            )
-                                                              .sort(
-                                                                sorters[
-                                                                  tertiary
-                                                                ]
-                                                              )
-                                                              .reduce(
-                                                                (
-                                                                  accT,
-                                                                  tertiaryKey
-                                                                ) => {
-                                                                  const stationsInfo =
-                                                                    tertiaryLevel[
-                                                                      tertiaryKey
-                                                                    ];
-                                                                  accT.push(
-                                                                    <li>
-                                                                      <h6>
-                                                                        {
-                                                                          decoder[
-                                                                            tertiary
-                                                                          ][
-                                                                            tertiaryKey
-                                                                          ]
-                                                                        }
-                                                                      </h6>
-                                                                      <table>
-                                                                        <tr>
-                                                                          <th>
-                                                                            Station
-                                                                            Count
-                                                                          </th>
-                                                                          <td>
-                                                                            {
-                                                                              stationsInfo.stationCount
-                                                                            }
-                                                                          </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                          <th>
-                                                                            Min
-                                                                            Date
-                                                                          </th>
-                                                                          <td>
-                                                                            {
-                                                                              stationsInfo.minDate
-                                                                            }
-                                                                          </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                          <th>
-                                                                            Max
-                                                                            Date
-                                                                          </th>
-                                                                          <td>
-                                                                            {
-                                                                              stationsInfo.maxDate
-                                                                            }
-                                                                          </td>
-                                                                        </tr>
-                                                                      </table>
-                                                                    </li>
-                                                                  );
-                                                                  return accT;
-                                                                },
-                                                                []
-                                                              )}
-                                                          </ul>
-                                                        </li>
-                                                      );
-                                                      return accS;
-                                                    },
-                                                    []
-                                                  )}
-                                              </ul>
-                                            </li>
-                                          );
-                                          return accP;
-                                        }, [])}
-                                    </ul>
-                                  </li>
-                                );
-                                return accT;
-                              }, [])}
-                          </ul>
-
                           <ul>
                             {Object.keys(stationData)
                               .sort(sorters[primary])
