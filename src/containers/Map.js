@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { stationSelect } from '../modules/map';
 import Map from '../components/Map';
+import AWVSgraph from './stationData/AverageWeekdayVolumeForStation';
 const gltoken =
   'pk.eyJ1IjoiYW0zMDgxIiwiYSI6IkxzS0FpU0UifQ.rYv6mHCcNd7KKMs7yhY3rw';
 const layers = [
@@ -29,7 +30,7 @@ export function Sidepanel(props) {
     <span />
   ) : (
     <div className="Map-Overlay color-scheme-dark">
-      <h3>{props.value}</h3>
+      <AWVSgraph match={{ params: { stationId: props.value } }} />
     </div>
   );
 }
