@@ -143,8 +143,6 @@ function parser(d, nestingOrder = defaultNestingOrder) {
     return acc;
   }, {});
 
-  console.log(stationData);
-
   return { decoder, stationData };
 }
 
@@ -178,7 +176,9 @@ export default function Region(props) {
                   variables={{
                     locCond: cond,
                     metaCond: cond,
-                    ctyCond: cond
+                    ctyCond: cond,
+                    regCond: cond,
+                    countsCond: cond
                   }}
                   render={({ error, props }) => {
                     if (error) {
@@ -191,89 +191,102 @@ export default function Region(props) {
 
                       // Ummm... yeah... I know.
                       return (
-                        <ul>
-                          {Object.keys(stationData)
-                            .sort(sorters[primary])
-                            .reduce((accP, primaryKey) => {
-                              const secondaryLevel = stationData[primaryKey];
-                              accP.push(
-                                <li>
-                                  <h3>{decoder[primary][primaryKey]}</h3>
-                                  <ul>
-                                    {Object.keys(secondaryLevel)
-                                      .sort(sorters[secondary])
-                                      .reduce((accS, secondaryKey) => {
-                                        const tertiaryLevel =
-                                          secondaryLevel[secondaryKey];
-                                        accS.push(
-                                          <li>
-                                            <h4>
-                                              {decoder[secondary][secondaryKey]}
-                                            </h4>
-                                            <ul>
-                                              {Object.keys(tertiaryLevel)
-                                                .sort(sorters[tertiary])
-                                                .reduce((accT, tertiaryKey) => {
-                                                  const stationsInfo =
-                                                    tertiaryLevel[tertiaryKey];
-                                                  accT.push(
-                                                    <li>
-                                                      <h5>
-                                                        {
-                                                          decoder[tertiary][
-                                                            tertiaryKey
-                                                          ]
-                                                        }
-                                                      </h5>
-                                                      <table>
-                                                        {Object.keys(
-                                                          stationsInfo
-                                                        )
-                                                          .sort()
-                                                          .reduce(
-                                                            (
-                                                              accL,
-                                                              stationId
-                                                            ) => {
-                                                              const location =
-                                                                stationsInfo[
+                        <div>
+                          <ul>
+                            {Object.keys(stationData)
+                              .sort(sorters[primary])
+                              .reduce((accP, primaryKey) => {
+                                const secondaryLevel = stationData[primaryKey];
+                                accP.push(
+                                  <li>
+                                    <h3>{decoder[primary][primaryKey]}</h3>
+                                    <ul>
+                                      {Object.keys(secondaryLevel)
+                                        .sort(sorters[secondary])
+                                        .reduce((accS, secondaryKey) => {
+                                          const tertiaryLevel =
+                                            secondaryLevel[secondaryKey];
+                                          accS.push(
+                                            <li>
+                                              <h4>
+                                                {
+                                                  decoder[secondary][
+                                                    secondaryKey
+                                                  ]
+                                                }
+                                              </h4>
+                                              <ul>
+                                                {Object.keys(tertiaryLevel)
+                                                  .sort(sorters[tertiary])
+                                                  .reduce(
+                                                    (accT, tertiaryKey) => {
+                                                      const stationsInfo =
+                                                        tertiaryLevel[
+                                                          tertiaryKey
+                                                        ];
+                                                      accT.push(
+                                                        <li>
+                                                          <h5>
+                                                            {
+                                                              decoder[tertiary][
+                                                                tertiaryKey
+                                                              ]
+                                                            }
+                                                          </h5>
+                                                          <table>
+                                                            {Object.keys(
+                                                              stationsInfo
+                                                            )
+                                                              .sort()
+                                                              .reduce(
+                                                                (
+                                                                  accL,
                                                                   stationId
-                                                                ];
-                                                              accL.push(
-                                                                <tr>
-                                                                  <th>
-                                                                    <Link
-                                                                      to={`/station-info/${stationId}/`}
-                                                                    >
-                                                                      &nbsp;{stationId}
-                                                                    </Link>
-                                                                  </th>
-                                                                  <td>
-                                                                    {location}
-                                                                  </td>
-                                                                </tr>
-                                                              );
-                                                              return accL;
-                                                            },
-                                                            []
-                                                          )}
-                                                      </table>
-                                                    </li>
-                                                  );
-                                                  return accT;
-                                                }, [])}
-                                            </ul>
-                                          </li>
-                                        );
-                                        return accS;
-                                      }, [])}
-                                  </ul>
-                                </li>
-                              );
+                                                                ) => {
+                                                                  const location =
+                                                                    stationsInfo[
+                                                                      stationId
+                                                                    ];
+                                                                  accL.push(
+                                                                    <tr>
+                                                                      <th>
+                                                                        <Link
+                                                                          to={`/station-info/${stationId}/`}
+                                                                        >
+                                                                          &nbsp;{stationId}
+                                                                        </Link>
+                                                                      </th>
+                                                                      <td>
+                                                                        {
+                                                                          location
+                                                                        }
+                                                                      </td>
+                                                                    </tr>
+                                                                  );
+                                                                  return accL;
+                                                                },
+                                                                []
+                                                              )}
+                                                          </table>
+                                                        </li>
+                                                      );
+                                                      return accT;
+                                                    },
+                                                    []
+                                                  )}
+                                              </ul>
+                                            </li>
+                                          );
+                                          return accS;
+                                        }, [])}
+                                    </ul>
+                                  </li>
+                                );
 
-                              return accP;
-                            }, [])}
-                        </ul>
+                                return accP;
+                              }, [])}
+                          </ul>
+                        </div>
                       );
                     }
                     return <div>Loading</div>;

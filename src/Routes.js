@@ -27,7 +27,11 @@ import ContinuousVehicleClassificationForStation from './containers/stationData/
 import ContinuousVolumeForStation from './containers/stationData/ContinuousVolumeForStation';
 import StationInfo from './containers/StationInfo';
 import Region from './containers/Region';
+
 import Map from './containers/Map';
+
+import Location from './containers/Location';
+
 export default ({ childProps }) => (
   <Switch>
     <UnauthenticatedRoute
@@ -171,6 +175,12 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <AuthenticatedRoute path="/map" exact component={Map} props={childProps} />
+    <AuthenticatedRoute
+      path="/location/"
+      exact
+      component={Location}
+      props={childProps}
+    />
     {/* Finally, catch all unmatched routes */}
     <Route component={NotFound} />
   </Switch>
