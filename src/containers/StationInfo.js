@@ -151,24 +151,6 @@ export default function StationInfo(props) {
             </tr>
           ));
           let center = null;
-          if (locData.latitude) {
-            const lat = ConvertDDToDMS(locData.latitude);
-            const lon = ConvertDDToDMS(locData.longitude, true);
-            center = [locData.longitude, locData.latitude];
-            console.log('<center>', center);
-            locDataDL.push(
-              <tr>
-                <th>
-                  <a
-                    href={`https://www.google.com/maps/place/${lat.deg}°${lat.min}'${lat.sec}"${lat.dir}+${lon.deg}°${lon.min}'${lon.sec}"${lon.dir}`}
-                    rel="external nofollow"
-                  >
-                    google maps
-                  </a>
-                </th>
-              </tr>
-            );
-          }
 
           const summary = Object.entries(info).reduce((acc, [tableName, d]) => {
             acc[tableName] = {

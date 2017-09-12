@@ -62,7 +62,11 @@ class ShortCountVol extends React.Component {
       <div>
         <div className="element-box">
           {chartData.map((currentData, i) => {
-            const currentCount = Object.keys(data.counts)[i];
+            const currentCount = data.counts[Object.keys(data.counts)[i]];
+            const legendData = Object.keys(currentCount).map(dir => {
+              return { name: directionCodes[dir] };
+            });
+            const countInfo = currentCount[Object.keys(currentCount)[0]];
             return (
               <div className="row">
                 <div className="project-info">
@@ -70,15 +74,17 @@ class ShortCountVol extends React.Component {
                     <div className="col-sm-12">
                       <div className="project-title">
                         <h5>
-                          Short Count {currentCount.currentDate}{' '}
-                          {currentCount.dayOfWeek}
+                          Short Count&nbsp;
+                          <span style={{ fontWeight: 100 }}>
+                            {countInfo.dayOfWeek} {countInfo.date}
+                          </span>
                         </h5>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-12 col-xl-12">
-                  <StackedBarGraph data={currentData} />
+                  <StackedBarGraph data={currentData} legendData={legendData} />
                 </div>
               </div>
             );

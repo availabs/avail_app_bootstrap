@@ -175,7 +175,6 @@ export default function ShortCountVolumeForStation(props) {
                       year: n.year,
                       month: n.month,
                       dayOfFirstData: n.day,
-
                       counts: {},
                       countId: n.countId,
                       batchId: n.batchId
@@ -199,6 +198,7 @@ export default function ShortCountVolumeForStation(props) {
                         +a.split('interval')[1] - +b.split('interval')[1]
                     )
                     .map(key => n[key] || 0)
+                    .filter((d, i) => i % (n.collectionInterval / 15) === 0)
                 };
                 acc[n.countId] = currentCount;
                 return acc;
@@ -212,7 +212,7 @@ export default function ShortCountVolumeForStation(props) {
             return (
               <div>
                 {countsGraphs}
-                <pre>{JSON.stringify(props, null, 4)}</pre>
+                <pre>{JSON.stringify(countObject, null, 4)}</pre>
               </div>
             );
             // return (
