@@ -2,6 +2,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import { Link } from 'react-router-dom';
 import BreadcrumbBar from '../components/layout/BreadcrumbBar';
+import SparkBar from '../components/graphs/SparkBar';
 import relay from '../relay.js';
 
 function parser(d) {
@@ -68,89 +69,224 @@ export default function AllRegionNames(props) {
   return (
     <div className="content-w">
       <BreadcrumbBar items={[{ text: 'Regions', link: '/' }]} />
-      <div className="content-i">
-        <div className="content-box">
-          <div className="row">
-            <div className="col-lg-7">
-              <div className="element-wrapper">
-                <h6 className="element-header">Regions</h6>
+      <QueryRenderer
+        environment={relay}
+        query={q}
+        render={({ error, props }) => {
+          if (error) {
+            return <div>{error.message}</div>;
+          } else if (props) {
+            const { regionStationsCount, regionYearlyCounts } = parser(props);
+            const regions = props.allNysdotRegionNames.edges.reduce(
+              (acc, { node: n }) => {
+                //console.log(n.name);
+                acc.push(n);
+                return acc;
+              },
+              []
+            );
 
-                <QueryRenderer
-                  environment={relay}
-                  query={q}
-                  render={({ error, props }) => {
-                    if (error) {
-                      return <div>{error.message}</div>;
-                    } else if (props) {
-                      const {
-                        regionStationsCount,
-                        regionYearlyCounts
-                      } = parser(props);
-                      console.log(regionStationsCount);
-                      const list = props.allNysdotRegionNames.edges
-                        .reduce((acc, { node: n }) => {
-                          console.log(n.name);
-                          acc.push(n);
-                          return acc;
-                        }, [])
-                        .map(({ region, name }) => (
-                          <div className="project-box">
-                            <div className="project-head">
-                              <div className="project-title">
-                                <Link to={`/region/${region}`}>
-                                  <h5>{name}</h5>
-                                </Link>
+            const stateWideStations = Object.keys(
+              regionStationsCount
+            ).reduce((prev, region) => {
+              Object.keys(regionStationsCount[region]).forEach(stationType => {
+                if (!prev[stationType]) {
+                  prev[stationType] = 0;
+                }
+                prev[stationType] += +regionStationsCount[region][stationType];
+              });
+              return prev;
+            }, {});
+
+            const stateWideYears = Object.keys(
+              regionYearlyCounts
+            ).reduce((prev, region) => {
+              Object.keys(regionYearlyCounts[region]).forEach(year => {
+                // if (!prev[year]) { prev[year] = {} }
+                Object.keys(
+                  regionYearlyCounts[region][year]
+                ).forEach(countType => {
+                  if (!prev[countType]) {
+                    prev[countType] = {};
+                  }
+                  if (!prev[countType][year]) {
+                    prev[countType][year] = 0;
+                  }
+                  prev[countType][year] += +regionYearlyCounts[region][year][
+                    countType
+                  ];
+                });
+              });
+              return prev;
+            }, {});
+
+            // const stateWideChartData = Object.keys(stateWideYears)
+            //   .reduce((prev, year) => {
+            //     prev[year] = Object.keys(stateWideYears[year])
+            //       .map(countType => {
+
+            //       })
+            //   },{})
+
+            const list = regions.map(({ region, name }, i) => {
+              var chartData = Object.keys(
+                regionYearlyCounts[region]
+              ).map(year => {
+                return {
+                  x: year,
+                  y: +regionYearlyCounts[region][year].SHORT_COUNT_VOLUME
+                };
+              });
+              return (
+                <div className="project-box" key={i}>
+                  <div className="project-head">
+                    <div className="project-title">
+                      <Link to={`/region/${region}`}>
+                        <h5>{name}</h5>
+                      </Link>
+                    </div>
+                  </div>
+                  <div className="project-info">
+                    <div className="row align-items-center">
+                      <div className="col-sm-7">
+                        <div className="row">
+                          <div className="col-6">
+                            <div className="el-tablo highlight">
+                              <div className="label">Short Count Stations</div>
+                              <div className="value">
+                                {(+regionStationsCount[region]
+                                  .AVERAGE_WEEKDAY).toLocaleString()}
                               </div>
                             </div>
-                            <div className="project-info">
+                          </div>
+                          <div className="col-6">
+                            <div className="el-tablo highlight">
+                              <div className="label">Cont. Count Stations</div>
+                              <div className="value">
+                                {regionStationsCount[
+                                  region
+                                ].CONTINUOUS.toLocaleString()}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-sm-5">
+                        <SparkBar data={chartData} />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            }); // end map
+            return (
+              <div className="content-i">
+                <div className="content-box">
+                  <div className="row">
+                    <div className="col-lg-7">
+                      <div className="element-wrapper">
+                        <h6 className="element-header">Regions</h6>
+                        <div className="projects-list">{list}</div>
+                      </div>
+                    </div>
+                    <div className="col-lg-5">
+                      <div className="projects-list">
+                        <div className="project-box">
+                          <div className="project-head">
+                            <div className="project-title">
+                              <h5>NEW YORK STATE OVERVIEW</h5>
+                            </div>
+                          </div>
+                          <div className="project-info">
+                            <div className="col-sm-12">
                               <pre>
-                                {JSON.stringify(
-                                  regionStationsCount[region],
-                                  null,
-                                  4
-                                )}
+                                {JSON.stringify(stateWideYears, null, 4)}
                               </pre>
-                              <pre>
-                                {JSON.stringify(
-                                  regionYearlyCounts[region],
-                                  null,
-                                  4
-                                )}
-                              </pre>
-
-                              <div className="row align-items-center">
-                                <div className="col-sm-5">
-                                  <div className="row">
-                                    <div className="col-6">
-                                      <div className="el-tablo highlight">
-                                        <div className="label">Open tasks</div>
-                                        <div className="value">15</div>
-                                      </div>
+                              <div className="row">
+                                <div className="col-6">
+                                  <div className="el-tablo highlight">
+                                    <div className="label">
+                                      Short Count Stations
                                     </div>
-                                    <div className="col-6">
-                                      <div className="el-tablo highlight">
-                                        <div className="label">
-                                          Contributors
-                                        </div>
-                                        <div className="value">24</div>
-                                      </div>
+                                    <div className="value">
+                                      {stateWideStations.AVERAGE_WEEKDAY.toLocaleString()}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="col-6">
+                                  <div className="el-tablo highlight">
+                                    <div className="label">
+                                      Cont. Count Stations
+                                    </div>
+                                    <div className="value">
+                                      {stateWideStations.CONTINUOUS.toLocaleString()}
                                     </div>
                                   </div>
                                 </div>
                               </div>
+                              {Object.keys(stateWideYears).map(countType => {
+                                const countChartData = Object.keys(
+                                  stateWideYears[countType]
+                                ).map(year => {
+                                  return {
+                                    x: year,
+                                    y: +stateWideYears[countType][year]
+                                  };
+                                });
+                                return (
+                                  <div className="row">
+                                    <div className="col-12">
+                                      <div className="el-tablo highlight">
+                                        <div className="label">{countType}</div>
+                                        <div className="value">
+                                          <SparkBar data={countChartData} />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
-                        ));
-                      return <div className="projects-list">{list}</div>;
-                    }
-                    return <div>Loading</div>;
-                  }}
-                />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+          return (
+            <div className="content-i">
+              <div className="content-box">
+                <div className="row">
+                  <div className="col-lg-7">
+                    <div className="element-wrapper">
+                      <h6 className="element-header">Regions</h6>
+                      <div>Loading</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          );
+        }}
+      />
     </div>
   );
 }
+
+// <pre>
+//   {JSON.stringify(
+//     regionStationsCount[region],
+//     null,
+//     4
+//   )}
+// </pre>
+// <pre>
+//   {JSON.stringify(
+//     regionYearlyCounts[region],
+//     null,
+//     4
+//   )}
+// </pre>

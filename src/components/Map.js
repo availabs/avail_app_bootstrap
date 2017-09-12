@@ -111,7 +111,7 @@ export class TmcMap extends React.Component {
         f.geometry.type === 'Point'
           ? f.geometry.coordinates
           : f.geometry.coordinates[0];
-      if (!coors) {
+      if (!coors || isNaN(coors[0]) || isNaN(coors[1])) {
         return;
       }
       popup

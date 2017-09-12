@@ -26,7 +26,6 @@ class AvgWeekdayVol extends React.Component {
         </tr>
       </table>
     );
-    let totalAADT = data.federalDirection[0].aadt;
     var chartData = Object.keys(data.federalDirection)
       .filter(dir => dir !== '0' && dir !== '9')
       .map(dir => {
