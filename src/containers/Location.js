@@ -2,11 +2,27 @@ import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../relay.js';
 
+const N = 5;
+
 const q = graphql`
-  query LocationNearestStationsQuery($qLon: Float, $qLat: Float) {
-    searchNNearestShortCountStations(qLon: $qLon, qLat: $qLat) {
+  query LocationNearestStationsQuery($qLon: Float, $qLat: Float, $n: Int) {
+    searchNearestNShortCountStations(qLon: $qLon, qLat: $qLat, n: $n) {
       edges {
-        node
+        node {
+          stationId
+          region
+          regionCode
+          countyCode
+          latitude
+          longitude
+          muni
+          tdvRoute
+          begindesc
+          enddesc
+          functionalClass
+          factorGroup
+          distanceFromLocationMeters
+        }
       }
     }
     searchContainingCounty(qLon: $qLon, qLat: $qLat) {
@@ -40,7 +56,7 @@ const q = graphql`
 
 function parser(d) {
   const {
-    searchNNearestShortCountStations: nNearestStationsResult,
+    searchNearestNShortCountStations: nearestStations,
     searchContainingCounty: containingCounty,
     searchContainingCityTown: containingCityTown,
     searchContainingVillage: containingVillage
@@ -66,16 +82,16 @@ function parser(d) {
       muniType: 'village'
     });
 
-  const nNearestStations =
-    nNearestStationsResult &&
-    nNearestStationsResult.edges &&
-    nNearestStationsResult.edges.length &&
-    nNearestStationsResult.edges.reduce((acc, { node: n }) => {
+  const stations =
+    nearestStations &&
+    nearestStations.edges &&
+    nearestStations.edges.length &&
+    nearestStations.edges.reduce((acc, { node: n }) => {
       acc.push(n);
       return acc;
     }, []);
 
-  return { nNearestStations, county, cityTown, village };
+  return { stations, county, cityTown, village };
 }
 
 class Location extends Component {
@@ -127,18 +143,16 @@ class Location extends Component {
                     query={q}
                     variables={{
                       qLon: this.state.longitude,
-                      qLat: this.state.latitude
+                      qLat: this.state.latitude,
+                      n: N
                     }}
                     render={({ error, props }) => {
                       if (error) {
                         return <div>{error.message}</div>;
                       } else if (props) {
-                        const {
-                          nNearestStations,
-                          county,
-                          village,
-                          cityTown
-                        } = parser(props);
+                        const { stations, county, village, cityTown } = parser(
+                          props
+                        );
 
                         return (
                           <div>
@@ -157,10 +171,8 @@ class Location extends Component {
                             ) : (
                               ''
                             )}
-                            {nNearestStations ? (
-                              <pre>
-                                {JSON.stringify(nNearestStations, null, 4)}
-                              </pre>
+                            {stations ? (
+                              <pre>{JSON.stringify(stations, null, 4)}</pre>
                             ) : (
                               ''
                             )}
