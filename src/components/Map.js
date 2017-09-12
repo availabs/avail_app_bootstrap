@@ -55,6 +55,7 @@ export class TmcMap extends React.Component {
     this.buildSlider = this.buildSlider.bind(this);
     this.onSlide = this.onSlide.bind(this);
     this.updateLegend = this.updateLegend.bind(this);
+    this.setHighlightId = this.setHighlightId.bind(this);
   }
 
   /**
@@ -252,6 +253,32 @@ export class TmcMap extends React.Component {
     hlts.map(hlt => {
       return this.highlight(hlt, map);
     });
+    if (this.props.highlightId) {
+      this.setHighlightId();
+    }
+  }
+  setHighlightId() {
+    let map = this.state.map;
+    if (!map || !this.props.highlightId) {
+      return;
+    }
+    let h = this.props.highlightId;
+    let ccolor = '#3274bc'; //map.getPaintProperty(h.layer,'circle-color')
+    let cradius = 5; //map.getPaintProperty(h.layer, 'circle-radius')
+    let hradius = cradius * 3;
+    let hcolor = '#1bc415';
+    map.setPaintProperty(h.layer, 'circle-color', {
+      stops: [[h.id, hcolor]],
+      type: 'categorical',
+      default: ccolor,
+      property: 'RC_ID'
+    });
+    map.setPaintProperty(h.layer, 'circle-radius', {
+      stops: [[h.id, hradius]],
+      type: 'categorical',
+      default: cradius,
+      property: 'RC_ID'
+    });
   }
   /**
    * Set the geometry data if any
@@ -357,6 +384,9 @@ export class TmcMap extends React.Component {
       this.state.map.dragPan.enable();
     } else if (this.state.map) {
       this.state.map.dragPan.disable();
+    }
+    if (this.props.center !== nextProps.center && this.props.highlightId) {
+      this.state.map.setCenter(nextProps.center);
     }
   }
   onSlide(val) {
@@ -482,7 +512,8 @@ TmcMap.propTypes = {
   hasSlider: PropTypes.bool,
   sliderComp: PropTypes.object,
   colorScale: PropTypes.func,
-  sliderRange: PropTypes.array
+  sliderRange: PropTypes.array,
+  highlightId: PropTypes.object
 };
 
 TmcMap.defaultProps = {

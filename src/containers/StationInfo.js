@@ -151,7 +151,9 @@ export default function StationInfo(props) {
             </tr>
           ));
           let center = null;
-
+          if (locData.latitude) {
+            center = [locData.longitude, locData.latitude];
+          }
           const summary = Object.entries(info).reduce((acc, [tableName, d]) => {
             acc[tableName] = {
               minDate: d.minDates.sort().pop(),
@@ -233,7 +235,7 @@ export default function StationInfo(props) {
                           <table>{locDataDL}</table>
                         </div>
                         <div id="mini-map" className="element-box">
-                          <MiniMap center={center} />
+                          <MiniMap center={center} id={stationId} />
                         </div>
                         <div className="element-box">{tablesInfo}</div>
                       </div>

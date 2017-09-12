@@ -3,7 +3,7 @@ import fetch from 'isomorphic-fetch';
 
 function fetchQuery(operation, variables) {
   console.log(operation);
-  return fetch('http://lor.availabs.org:4000/traffic_data/graphql', {
+  return fetch('https://trafficdata.availabs.org/api/traffic_data/graphql', {
     method: 'POST',
     headers: {
       // Add authentication and other headers here
