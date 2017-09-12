@@ -385,7 +385,7 @@ export class TmcMap extends React.Component {
     } else if (this.state.map) {
       this.state.map.dragPan.disable();
     }
-    if (this.props.center !== nextProps.center) {
+    if (this.props.center !== nextProps.center && this.props.highlightId) {
       this.state.map.setCenter(nextProps.center);
     }
   }
