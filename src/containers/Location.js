@@ -190,7 +190,13 @@ class Location extends Component {
                                         {village ? (
                                           `Village of ${village.name}`
                                         ) : cityTown ? (
-                                          `${cityTown.muniType} of ${cityTown.name}`
+                                          `${cityTown.muniType
+                                            .split('')
+                                            .map(
+                                              (c, i) =>
+                                                i === 0 ? c.toUpperCase() : c
+                                            )
+                                            .join('')} of ${cityTown.name}`
                                         ) : (
                                           ''
                                         )}
@@ -266,7 +272,7 @@ class Location extends Component {
                                         <tr>
                                           <th>Distance From Your Location</th>
                                           <td>
-                                            {stationInfo.distanceFromLocationMeters}
+                                            {stationInfo.distanceFromLocationMeters}&nbsp;
                                             meters
                                           </td>
                                         </tr>
