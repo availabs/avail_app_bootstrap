@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../relay.js';
+import MiniMap from './MiniMap';
 
 const N = 5;
 
@@ -203,6 +204,14 @@ class Location extends Component {
                                       </td>
                                     </tr>
                                   </table>
+                                  <div id="mini-map" className="element-box">
+                                    <MiniMap
+                                      center={[
+                                        this.state.longitude,
+                                        this.state.latitude
+                                      ]}
+                                    />
+                                  </div>
                                 </div>
                               </div>
                               <div>
