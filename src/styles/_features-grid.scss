@@ -4,6 +4,10 @@
   .flexContainer {
      height: 1092px;
   }
+  .feature-cell a:hover {
+    text-decoration: none;
+    cursor: pointer;
+  }
   .feature-cell {
     flex: 1 1 auto;
     border-bottom: 1px solid rgba(0,0,0,0.1);

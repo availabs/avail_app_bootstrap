@@ -158,10 +158,13 @@ export default function AllRegionNames(props) {
                   </div>
                   <div className="project-info">
                     <div className="row align-items-center">
-                      <div className="col-sm-7">
+                      <div className="col-sm-5">
                         <div className="row">
-                          <div className="col-6">
-                            <div className="el-tablo highlight">
+                          <div className="col-12">
+                            <div
+                              className="el-tablo highlight"
+                              style={{ textAlign: 'center' }}
+                            >
                               <div className="label">Short Count Stations</div>
                               <div className="value">
                                 {(+regionStationsCount[region]
@@ -169,19 +172,9 @@ export default function AllRegionNames(props) {
                               </div>
                             </div>
                           </div>
-                          <div className="col-6">
-                            <div className="el-tablo highlight">
-                              <div className="label">Cont. Count Stations</div>
-                              <div className="value">
-                                {regionStationsCount[
-                                  region
-                                ].CONTINUOUS.toLocaleString()}
-                              </div>
-                            </div>
-                          </div>
                         </div>
                       </div>
-                      <div className="col-sm-5">
+                      <div className="col-sm-7">
                         <SparkBar
                           data={chartData}
                           label="SHORT COUNTS COLLECTED"
