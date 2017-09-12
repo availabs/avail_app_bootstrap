@@ -30,6 +30,7 @@ export function Sidepanel(props) {
     <span />
   ) : (
     <div className="Map-Overlay color-scheme-dark">
+      <h4> {props.value} </h4>
       <AWVSgraph match={{ params: { stationId: props.value } }} />
     </div>
   );

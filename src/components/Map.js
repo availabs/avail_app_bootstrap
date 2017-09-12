@@ -105,18 +105,24 @@ export class TmcMap extends React.Component {
     this.updateGeoms(map);
     map.resize();
 
+    let movef = e => {
+      let f = e.features[0];
+      let coors =
+        f.geometry.type === 'Point'
+          ? f.geometry.coordinates
+          : f.geometry.coordinates[0];
+      if (!coors) {
+        return;
+      }
+      popup
+        .setLngLat(coors)
+        .setHTML(`<strong>${f.properties.RC_ID}</strong>`)
+        .addTo(map);
+    };
+
     this.props.layers.forEach(layer => {
-      map.on('mouseenter', layer, e => {
-        let f = e.features[0];
-        let coors =
-          f.geometry.type === 'Point'
-            ? f.geometry.coordinates
-            : f.geometry.coordinates[0];
-        popup
-          .setLngLat(coors)
-          .setHTML(`<strong>${f.properties.RC_ID}</strong>`)
-          .addTo(map);
-      });
+      map.on('mouseenter', layer, movef);
+      map.on('mousemove', layer, movef);
       map.on('mouseleave', layer, e => {
         popup.remove();
       });
