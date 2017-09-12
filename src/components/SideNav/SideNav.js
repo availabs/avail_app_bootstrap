@@ -110,6 +110,12 @@ const menus = [
     icon: 'os-icon-tasks-checked',
     title: 'Field Collection App',
     link: '/location'
+  },
+  {
+    icon: 'icon-map',
+    link: '/map',
+    title: 'Map',
+    class: ' '
   }
 ];
 
@@ -204,7 +210,11 @@ class SideNav extends Component {
           >
             <Link to={menu.link}>
               <div className="icon-w">
-                <i className={'os-icon ' + menu.icon} />
+                <i
+                  className={
+                    (menu.class ? menu.class : 'os-icon') + ' ' + menu.icon
+                  }
+                />
               </div>
             </Link>
           </li>
