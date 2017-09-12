@@ -25,7 +25,7 @@ const mapStateToProps = state => ({
   center: [-76.15448, 43.088947],
   value: state.map.stationid,
   layers: layers,
-  height: '200px',
+  height: '350px',
   zoom: 12,
   pitch: 40
 });
