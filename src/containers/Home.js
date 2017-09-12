@@ -14,56 +14,104 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="Home">
-        <li>
-          <Link to="/all-station-ids">"/all-station-ids"</Link>
-        </li>
-        <li>
-          <Link to="/all-region-names/">"/all-region-names/"</Link>
-        </li>
-        <li>
-          <Link to="/average-weekday-speed-table-description/">
-            "/average-weekday-speed-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/average-weekday-vehicle-classification-table-description/">
-            "/average-weekday-vehicle-classification-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/average-weekday-volume-table-description/">
-            "/average-weekday-volume-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/short-count-speed-table-description/">
-            "/short-count-speed-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/short-count-vehicle-classification-table-description/">
-            "/short-count-vehicle-classification-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/short-count-volume-table-description/">
-            "/short-count-volume-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/continuous-vehicle-classification-table-description/">
-            "/continuous-vehicle-classification-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/continuous-volume-table-description/">
-            "/continuous-volume-table-description/"
-          </Link>
-        </li>
-        <li>
-          <Link to="/station-info/:rcStation">"/station-info/:rcStation"</Link>
-        </li>
+      <div className="content-w">
+        <div className="features-table">
+          <div className="os-container">
+            <div
+              className="d-flex flex-column align-content-center flex-wrap flexContainer"
+              style={{ height: 1092 }}
+            >
+              <div className="col-xl-4 col-sm-6 b-l b-t feature-cell">
+                <div className="feature-icon">
+                  <i className="icon-map" />
+                </div>
+                <h6 className="feature-title" />
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-r b-l b-t feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-fingerprint" />
+                </div>
+                <h6 className="feature-title">Unique Design</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-r b-l feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-fingerprint" />
+                </div>
+                <h6 className="feature-title">Unique Design</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-r feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-mail-14" />
+                </div>
+                <h6 className="feature-title">Mail and Chat Layouts</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-l feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-ui-44" />
+                </div>
+                <h6 className="feature-title">All in one solution</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-r b-l feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-cv-2" />
+                </div>
+                <h6 className="feature-title">Gorgeous User Profiles</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-r feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-crown" />
+                </div>
+                <h6 className="feature-title">Elite Author</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.{' '}
+                </div>
+              </div>
+              <div className="col-xl-4 col-sm-6 b-r feature-cell">
+                <div className="feature-icon">
+                  <i className="os-icon os-icon-crown" />
+                </div>
+                <h6 className="feature-title">Elite Author</h6>
+                <div className="feature-text">
+                  Gone studies to titles have audiences of and concepts was
+                  motivator, the this more picture a to we ever the taken have
+                  brilliant. Explain on woman concept readiness way.{' '}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

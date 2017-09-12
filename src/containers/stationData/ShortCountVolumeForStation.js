@@ -209,12 +209,7 @@ export default function ShortCountVolumeForStation(props) {
               .sort((a, b) => +countObject[b].year - +countObject[a].year)
               .map(countId => <ShortCountVol data={countObject[countId]} />);
 
-            return (
-              <div>
-                {countsGraphs}
-                <pre>{JSON.stringify(countObject, null, 4)}</pre>
-              </div>
-            );
+            return <div>{countsGraphs}</div>;
             // return (
             //   <div>
             //     <pre>{JSON.stringify(countObject, null, 4)}</pre>
