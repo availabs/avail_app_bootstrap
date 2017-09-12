@@ -6,6 +6,7 @@ import AverageWeekdayVolumeForStation from './stationData/AverageWeekdayVolumeFo
 import ShortCountVolumeForStation from './stationData/ShortCountVolumeForStation';
 import BreadcrumbBar from '../components/layout/BreadcrumbBar';
 import relay from '../relay.js';
+import MiniMap from './MiniMap';
 
 // https://github.com/facebook/relay/issues/1851
 // http://ftp.dot.ny.gov/tdv/YR2010/Other/Class/R01/11_Albany/11_0009_ClassAverageReport.pdf
@@ -149,10 +150,12 @@ export default function StationInfo(props) {
               <td>{locData[col]}</td>
             </tr>
           ));
-
+          let center = null;
           if (locData.latitude) {
             const lat = ConvertDDToDMS(locData.latitude);
             const lon = ConvertDDToDMS(locData.longitude, true);
+            center = [locData.longitude, locData.latitude];
+            console.log('<center>', center);
             locDataDL.push(
               <tr>
                 <th>
@@ -246,6 +249,9 @@ export default function StationInfo(props) {
                         </h6>
                         <div className="element-box">
                           <table>{locDataDL}</table>
+                        </div>
+                        <div id="mini-map" className="element-box">
+                          <MiniMap center={center} />
                         </div>
                         <div className="element-box">{tablesInfo}</div>
                       </div>

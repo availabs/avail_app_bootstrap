@@ -327,7 +327,8 @@ export class TmcMap extends React.Component {
       container: this.props.mapid,
       style: this.props.url,
       center: this.props.center,
-      zoom: this.props.zoom
+      zoom: this.props.zoom,
+      pitch: this.props.pitch
     });
     var nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-right');
@@ -430,7 +431,7 @@ export class TmcMap extends React.Component {
       <div
         id={this.props.mapid}
         className={'mapboxgl-map'}
-        style={{ height: '100%', top: '0' }}
+        style={{ height: this.props.height || '100%', top: '0' }}
         onClick={bubbleStopper}
         onContextMenu={bubbleStopper}
         onDoubleClick={bubbleStopper}
@@ -490,6 +491,7 @@ TmcMap.defaultProps = {
   edit: false,
   center: [-73.756232, 42.652579],
   zoom: 7,
+  pitch: 0,
   scrollZoom: true,
   sliderRange: ['0', '1'],
   geoms: [],
