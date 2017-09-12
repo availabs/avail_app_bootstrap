@@ -2,29 +2,97 @@ import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../relay.js';
 
-function parser(d) {
-  const { searchNNearestShortCountStations: nNearestStationsResult } = d;
-
-  const nNearestStations = nNearestStationsResult.edges.reduce(
-    (acc, { node: n }) => {
-      acc.push(n);
-      return acc;
-    },
-    []
-  );
-
-  return { nNearestStations };
-}
+const N = 5;
 
 const q = graphql`
-  query LocationNearestStationsQuery($qLon: Float, $qLat: Float) {
-    searchNNearestShortCountStations(qLon: $qLon, qLat: $qLat) {
+  query LocationNearestStationsQuery($qLon: Float, $qLat: Float, $n: Int) {
+    searchNearestNShortCountStations(qLon: $qLon, qLat: $qLat, n: $n) {
       edges {
-        node
+        node {
+          stationId
+          region
+          regionCode
+          countyCode
+          latitude
+          longitude
+          muni
+          tdvRoute
+          begindesc
+          enddesc
+          functionalClass
+          factorGroup
+          distanceFromLocationMeters
+        }
+      }
+    }
+    searchContainingCounty(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node {
+          name
+          region
+          fips
+        }
+      }
+    }
+    searchContainingCityTown(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node {
+          name
+          county
+          muniType
+        }
+      }
+    }
+    searchContainingVillage(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node {
+          name
+          county
+        }
       }
     }
   }
 `;
+
+function parser(d) {
+  const {
+    searchNearestNShortCountStations: nearestStations,
+    searchContainingCounty: containingCounty,
+    searchContainingCityTown: containingCityTown,
+    searchContainingVillage: containingVillage
+  } = d;
+
+  const county =
+    containingCounty &&
+    containingCounty.edges &&
+    containingCounty.edges.length &&
+    containingCounty.edges[0].node;
+
+  const cityTown =
+    containingCityTown &&
+    containingCityTown.edges &&
+    containingCityTown.edges.length &&
+    containingCityTown.edges[0].node;
+
+  const village =
+    containingVillage &&
+    containingVillage.edges &&
+    containingVillage.edges.length &&
+    Object.assign({}, containingVillage.edges[0].node, {
+      muniType: 'village'
+    });
+
+  const stations =
+    nearestStations &&
+    nearestStations.edges &&
+    nearestStations.edges.length &&
+    nearestStations.edges.reduce((acc, { node: n }) => {
+      acc.push(n);
+      return acc;
+    }, []);
+
+  return { stations, county, cityTown, village };
+}
 
 class Location extends Component {
   constructor(props) {
@@ -75,16 +143,40 @@ class Location extends Component {
                     query={q}
                     variables={{
                       qLon: this.state.longitude,
-                      qLat: this.state.latitude
+                      qLat: this.state.latitude,
+                      n: N
                     }}
                     render={({ error, props }) => {
                       if (error) {
                         return <div>{error.message}</div>;
                       } else if (props) {
-                        const { nNearestStations } = parser(props);
+                        const { stations, county, village, cityTown } = parser(
+                          props
+                        );
 
                         return (
-                          <pre>{JSON.stringify(nNearestStations, null, 4)}</pre>
+                          <div>
+                            {county ? (
+                              <pre>{JSON.stringify(county, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                            {cityTown ? (
+                              <pre>{JSON.stringify(cityTown, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                            {village ? (
+                              <pre>{JSON.stringify(village, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                            {stations ? (
+                              <pre>{JSON.stringify(stations, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                          </div>
                         );
                       }
                       return <div>Loading</div>;
