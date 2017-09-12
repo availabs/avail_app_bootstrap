@@ -175,23 +175,30 @@ export default function ShortCountVolumeForStation(props) {
                       year: n.year,
                       month: n.month,
                       dayOfFirstData: n.day,
+
                       counts: {},
                       countId: n.countId,
                       batchId: n.batchId
                     };
                 let currentDate = `${n.month}/${n.day}/${n.year}`;
-                currentCount['counts'][currentDate] = {};
+                if (!currentCount['counts'][currentDate]) {
+                  currentCount['counts'][currentDate] = {};
+                }
                 currentCount['counts'][currentDate][n.federalDirection] = {
                   federalDirection: n.federalDirection,
                   total: n.total,
+                  year: n.year,
+                  month: n.month,
+                  date: currentDate,
+                  dayOfWeek: n.dayOfWeek,
+                  dayOfFirstData: n.day,
                   data: Object.keys(n)
                     .filter(key => key.indexOf('interval') !== -1)
                     .sort(
                       (a, b) =>
                         +a.split('interval')[1] - +b.split('interval')[1]
                     )
-                    .map(key => n[key])
-                    .filter(d => d)
+                    .map(key => n[key] || 0)
                 };
                 acc[n.countId] = currentCount;
                 return acc;
@@ -202,7 +209,12 @@ export default function ShortCountVolumeForStation(props) {
               .sort((a, b) => +countObject[b].year - +countObject[a].year)
               .map(countId => <ShortCountVol data={countObject[countId]} />);
 
-            return <div>{countsGraphs}</div>;
+            return (
+              <div>
+                {countsGraphs}
+                <pre>{JSON.stringify(props, null, 4)}</pre>
+              </div>
+            );
             // return (
             //   <div>
             //     <pre>{JSON.stringify(countObject, null, 4)}</pre>

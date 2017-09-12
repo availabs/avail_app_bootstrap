@@ -14,7 +14,7 @@ class StackedBarGraph extends React.Component {
       <div>
         <VictoryChart
           padding={{ right: 0, top: 10, left: 40, bottom: 50 }}
-          domainPadding={{ x: 10 }}
+          domainPadding={{ x: 8 }}
         >
           <VictoryLegend
             colorScale={'red'}
@@ -46,7 +46,15 @@ class StackedBarGraph extends React.Component {
               tickLabels: { fontSize: 8, padding: 5 }
             }}
           />
-          <VictoryGroup offset={0} style={{ data: { width: 15 } }}>
+          <VictoryGroup
+            offset={0}
+            style={{
+              data: {
+                width:
+                  this.props.data[0] && this.props.data[0].length > 45 ? 5 : 15
+              }
+            }}
+          >
             <VictoryStack colorScale={'red'}>
               {this.props.data.map((data, index) => {
                 return <VictoryBar key={index} data={data} />;

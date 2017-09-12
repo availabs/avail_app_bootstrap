@@ -29,7 +29,11 @@ class ShortCountVol extends React.Component {
     var chartData = Object.keys(data.counts).map(countDate => {
       return Object.keys(data.counts[countDate]).map(dir => {
         return data.counts[countDate][dir].data.map((value, index) => {
-          return { name: dir, x: index + 1, y: value };
+          var xValue =
+            data.counts[countDate][dir].data.length > 24
+              ? (index / 4).toFixed(2)
+              : index + 1;
+          return { name: dir, x: +xValue, y: value };
         });
       });
     });
@@ -57,26 +61,24 @@ class ShortCountVol extends React.Component {
     return (
       <div>
         <div className="element-box">
-          <div className="project-info">
-            <div className="row align-items-center">
-              <div className="col-sm-5">
-                <div className="project-title">
-                  <h5>
-                    Average Weekday Volume<br />
-                    {countDate}
-                  </h5>
-                </div>
-              </div>
-              <div className="col-sm-7">
-                <div className="row" />
-              </div>
-            </div>
-          </div>
-          {chartData.map(data => {
+          {chartData.map((currentData, i) => {
+            const currentCount = Object.keys(data.counts)[i];
             return (
               <div className="row">
+                <div className="project-info">
+                  <div className="row align-items-center">
+                    <div className="col-sm-12">
+                      <div className="project-title">
+                        <h5>
+                          Short Count {currentCount.currentDate}{' '}
+                          {currentCount.dayOfWeek}
+                        </h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div className="col-md-12 col-xl-12">
-                  <StackedBarGraph data={data} />
+                  <StackedBarGraph data={currentData} />
                 </div>
               </div>
             );
