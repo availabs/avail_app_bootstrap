@@ -5,6 +5,16 @@ import BreadcrumbBar from '../components/layout/BreadcrumbBar';
 import SparkBar from '../components/graphs/SparkBar';
 import relay from '../relay.js';
 
+const colors = [
+  '#4575b4',
+  '#74add1',
+  '#abd9e9',
+  '#e0f3f8',
+  '#fee090',
+  '#fdae61',
+  '#f46d43',
+  '#d73027'
+];
 function parser(d) {
   const {
     allRegionStationsCounts: regionStationsCounts,
@@ -172,7 +182,10 @@ export default function AllRegionNames(props) {
                         </div>
                       </div>
                       <div className="col-sm-5">
-                        <SparkBar data={chartData} />
+                        <SparkBar
+                          data={chartData}
+                          label="SHORT COUNTS COLLECTED"
+                        />
                       </div>
                     </div>
                   </div>
@@ -199,9 +212,6 @@ export default function AllRegionNames(props) {
                           </div>
                           <div className="project-info">
                             <div className="col-sm-12">
-                              <pre>
-                                {JSON.stringify(stateWideYears, null, 4)}
-                              </pre>
                               <div className="row">
                                 <div className="col-6">
                                   <div className="el-tablo highlight">
@@ -224,28 +234,35 @@ export default function AllRegionNames(props) {
                                   </div>
                                 </div>
                               </div>
-                              {Object.keys(stateWideYears).map(countType => {
-                                const countChartData = Object.keys(
-                                  stateWideYears[countType]
-                                ).map(year => {
-                                  return {
-                                    x: year,
-                                    y: +stateWideYears[countType][year]
-                                  };
-                                });
-                                return (
-                                  <div className="row">
-                                    <div className="col-12">
-                                      <div className="el-tablo highlight">
-                                        <div className="label">{countType}</div>
-                                        <div className="value">
-                                          <SparkBar data={countChartData} />
-                                        </div>
+                              <div className="project-title">
+                                <h5>COUNTS COLLECTED BY TYPE</h5>
+                              </div>
+                              {Object.keys(stateWideYears)
+                                .filter(
+                                  countType =>
+                                    countType.indexOf('SHORT_COUNT') !== -1
+                                )
+                                .map((countType, i) => {
+                                  const countChartData = Object.keys(
+                                    stateWideYears[countType]
+                                  ).map(year => {
+                                    return {
+                                      x: year,
+                                      y: +stateWideYears[countType][year]
+                                    };
+                                  });
+                                  return (
+                                    <div className="row">
+                                      <div className="col-12">
+                                        <SparkBar
+                                          color={colors[i]}
+                                          data={countChartData}
+                                          label={countType}
+                                        />
                                       </div>
                                     </div>
-                                  </div>
-                                );
-                              })}
+                                  );
+                                })}
                             </div>
                           </div>
                         </div>

@@ -1,16 +1,17 @@
 import React from 'react';
 import BreadcrumbBar from '../components/layout/BreadcrumbBar';
+import RegionExplorer from '../components/region/RegionExplorer';
 import { QueryRenderer, graphql } from 'react-relay';
-import { Link } from 'react-router-dom';
+
 import relay from '../relay.js';
 
 const defaultNestingOrder = ['countyCode', 'functionalClass', 'factorGroup']; //allow hierarchy by factorGroup via toggle
 
-const sorters = {
-  functionalClass: (a, b) => +a - +b,
-  countyCode: null,
-  factorGroup: null
-};
+// const sorters = {
+//   functionalClass: (a, b) => +a - +b,
+//   countyCode: null,
+//   factorGroup: null
+// };
 
 const q = graphql`
   query RegionStationsQuery(
@@ -153,7 +154,7 @@ export default function Region(props) {
   // Later offer a UI component that allows user to control nesting order.
   const nestingOrder = defaultNestingOrder;
 
-  const [primary, secondary, tertiary] = nestingOrder;
+  // const [primary, secondary, tertiary] = nestingOrder;
 
   return (
     <div className="content-w">
@@ -168,7 +169,6 @@ export default function Region(props) {
           <div className="row">
             <div className="col-lg-12">
               <div className="element-wrapper">
-                <h6 className="element-header">Region: {region}</h6>
                 <h1>Region {region}</h1>
                 <QueryRenderer
                   environment={relay}
@@ -188,104 +188,13 @@ export default function Region(props) {
                         props,
                         nestingOrder
                       );
-
-                      // Ummm... yeah... I know.
                       return (
                         <div>
-                          <ul>
-                            {Object.keys(stationData)
-                              .sort(sorters[primary])
-                              .reduce((accP, primaryKey) => {
-                                const secondaryLevel = stationData[primaryKey];
-                                accP.push(
-                                  <li>
-                                    <h3>{decoder[primary][primaryKey]}</h3>
-                                    <ul>
-                                      {Object.keys(secondaryLevel)
-                                        .sort(sorters[secondary])
-                                        .reduce((accS, secondaryKey) => {
-                                          const tertiaryLevel =
-                                            secondaryLevel[secondaryKey];
-                                          accS.push(
-                                            <li>
-                                              <h4>
-                                                {
-                                                  decoder[secondary][
-                                                    secondaryKey
-                                                  ]
-                                                }
-                                              </h4>
-                                              <ul>
-                                                {Object.keys(tertiaryLevel)
-                                                  .sort(sorters[tertiary])
-                                                  .reduce(
-                                                    (accT, tertiaryKey) => {
-                                                      const stationsInfo =
-                                                        tertiaryLevel[
-                                                          tertiaryKey
-                                                        ];
-                                                      accT.push(
-                                                        <li>
-                                                          <h5>
-                                                            {
-                                                              decoder[tertiary][
-                                                                tertiaryKey
-                                                              ]
-                                                            }
-                                                          </h5>
-                                                          <table>
-                                                            {Object.keys(
-                                                              stationsInfo
-                                                            )
-                                                              .sort()
-                                                              .reduce(
-                                                                (
-                                                                  accL,
-                                                                  stationId
-                                                                ) => {
-                                                                  const location =
-                                                                    stationsInfo[
-                                                                      stationId
-                                                                    ];
-                                                                  accL.push(
-                                                                    <tr>
-                                                                      <th>
-                                                                        <Link
-                                                                          to={`/station-info/${stationId}/`}
-                                                                        >
-                                                                          &nbsp;{stationId}
-                                                                        </Link>
-                                                                      </th>
-                                                                      <td>
-                                                                        {
-                                                                          location
-                                                                        }
-                                                                      </td>
-                                                                    </tr>
-                                                                  );
-                                                                  return accL;
-                                                                },
-                                                                []
-                                                              )}
-                                                          </table>
-                                                        </li>
-                                                      );
-                                                      return accT;
-                                                    },
-                                                    []
-                                                  )}
-                                              </ul>
-                                            </li>
-                                          );
-                                          return accS;
-                                        }, [])}
-                                    </ul>
-                                  </li>
-                                );
-
-                                return accP;
-                              }, [])}
-                          </ul>
+                          <RegionExplorer
+                            data={stationData}
+                            decoder={decoder}
+                          />
+                          <pre>{JSON.stringify(stationData, null, 4)}</pre>
                         </div>
                       );
                     }

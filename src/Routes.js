@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import AuthenticatedRoute from './components/auth/AuthenticatedRoute';
 import UnauthenticatedRoute from './components/auth/UnauthenticatedRoute';
 
-// import Home from './containers/Home';
+import Home from './containers/Home';
 import Login from './containers/Login';
 import Signup from './containers/Signup';
 import NotFound from './containers/NotFound';
@@ -53,12 +53,12 @@ export default ({ childProps }) => (
       props={childProps}
     />
     <AuthenticatedRoute
-      path="/"
+      path="/regions"
       exact
       component={AllRegionNames}
       props={childProps}
     />
-
+    <AuthenticatedRoute path="/" exact component={Home} props={childProps} />
     <AuthenticatedRoute
       path="/average-weekday-speed-table-description"
       exact
@@ -176,7 +176,7 @@ export default ({ childProps }) => (
     />
     <AuthenticatedRoute path="/map" exact component={Map} props={childProps} />
     <AuthenticatedRoute
-      path="/location/"
+      path="/location"
       exact
       component={Location}
       props={childProps}

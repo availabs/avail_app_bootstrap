@@ -17,7 +17,11 @@ class SparkBar extends React.Component {
           <VictoryBar
             style={{
               labels: { fill: '#efefef', fontSize: 20 },
-              data: { fill: '#047bf8', padding: 0, width: 80 }
+              data: {
+                fill: this.props.color || '#047bf8',
+                padding: 0,
+                width: 70
+              }
             }}
             data={this.props.data}
             labels={d => d.y}
@@ -32,7 +36,7 @@ class SparkBar extends React.Component {
             }}
           />
           <VictoryAxis
-            label="SHORT COUNTS COLLECTED"
+            label={this.props.label}
             tickFormat={t => (+t % 5 === 0 ? t : '')}
             style={{
               axis: { stroke: 'transparent' },

@@ -1,5 +1,6 @@
 import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
+import ShortCountVol from '../../components/counts/ShortCountVol';
 import relay from '../../relay.js';
 
 // https://github.com/facebook/relay/issues/1851
@@ -144,7 +145,6 @@ export default function ShortCountVolumeForStation(props) {
 
   return (
     <div>
-      <h1>rcStation: {rcStation}</h1>
       <QueryRenderer
         environment={relay}
         query={q}
@@ -153,12 +153,62 @@ export default function ShortCountVolumeForStation(props) {
           if (error) {
             return <div>{error.message}</div>;
           } else if (props) {
-            return (
-              <div>
-                <h1>First 10 {Object.keys(props)}</h1>
-                <pre>{JSON.stringify(props, null, 4)}</pre>
-              </div>
+            let countObject = props.allShortCountVolumes.edges.reduce(
+              (acc, { node: n }) => {
+                let currentCount = acc[n.countId]
+                  ? acc[n.countId]
+                  : {
+                      rcStation: n.rcStation,
+                      rg: n.rg,
+                      regionCode: n.regionCode,
+                      countyCode: n.countyCode,
+                      stat: n.stat,
+                      rcsta: n.rcsta,
+                      functionalClass: n.functionalClass,
+                      factorGroup: n.factorGroup,
+                      latitude: n.latitude,
+                      longitude: n.longitude,
+                      specificRecorderPlacement: n.specificRecorderPlacement,
+                      channelNotes: n.channelNotes,
+                      dataType: n.dataType,
+                      vehicleAxleCode: n.vehicleAxleCode,
+                      year: n.year,
+                      month: n.month,
+                      dayOfFirstData: n.day,
+                      counts: {},
+                      countId: n.countId,
+                      batchId: n.batchId
+                    };
+                let currentDate = `${n.month}/${n.day}/${n.year}`;
+                currentCount['counts'][currentDate] = {};
+                currentCount['counts'][currentDate][n.federalDirection] = {
+                  federalDirection: n.federalDirection,
+                  total: n.total,
+                  data: Object.keys(n)
+                    .filter(key => key.indexOf('interval') !== -1)
+                    .sort(
+                      (a, b) =>
+                        +a.split('interval')[1] - +b.split('interval')[1]
+                    )
+                    .map(key => n[key])
+                    .filter(d => d)
+                };
+                acc[n.countId] = currentCount;
+                return acc;
+              },
+              {}
             );
+            var countsGraphs = Object.keys(countObject)
+              .sort((a, b) => +countObject[b].year - +countObject[a].year)
+              .map(countId => <ShortCountVol data={countObject[countId]} />);
+
+            return <div>{countsGraphs}</div>;
+            // return (
+            //   <div>
+            //     <pre>{JSON.stringify(countObject, null, 4)}</pre>
+            //     <pre>{JSON.stringify(props, null, 4)}</pre>
+            //   </div>
+            // );
           }
           return <div>Loading</div>;
         }}

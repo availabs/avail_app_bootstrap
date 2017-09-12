@@ -69,7 +69,7 @@ class Login extends Component {
               <img alt="" src="/img/logo-big.png" />
             </a>
           </div>
-          <h4 className="auth-header">Login Form</h4>
+          <h4 className="auth-header">Traffic Data Management Login</h4>
           <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor>Username</label>
@@ -106,12 +106,6 @@ class Login extends Component {
                 text="Login"
                 loadingText="Logging in…"
               />
-              <div className="form-check-inline">
-                <label className="form-check-label">
-                  <input className="form-check-input" type="checkbox" />Remember
-                  Me
-                </label>
-              </div>
             </div>
           </form>
         </div>

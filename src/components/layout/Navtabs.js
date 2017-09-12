@@ -9,7 +9,6 @@ export default props => (
           return (
             <li className="nav-item">
               <Link
-                onClick={props.onNav || null}
                 className={
                   'nav-link' +
                   (item.active ? ' active' : '') +
@@ -26,11 +25,3 @@ export default props => (
     </div>
   </div>
 );
-
-//  <ul className="nav nav-pills smaller hidden-md-down">
-//   <li className="nav-item">
-//     <a className="nav-link active" data-toggle="tab" href="#" aria-expanded="true"> Today</a></li>
-//   <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#" aria-expanded="false"> 7 Days</a></li>
-//   <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#" aria-expanded="false"> 14 Days</a></li>
-//   <li className="nav-item"><a className="nav-link" data-toggle="tab" href="#" aria-expanded="false"> Last Month</a></li>
-// </ul>
