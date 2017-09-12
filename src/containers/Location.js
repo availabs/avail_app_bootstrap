@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../relay.js';
+import MiniMap from './MiniMap';
 
 const N = 5;
 
@@ -82,14 +83,28 @@ function parser(d) {
       muniType: 'village'
     });
 
-  const stations =
+  let stations =
     nearestStations &&
     nearestStations.edges &&
     nearestStations.edges.length &&
     nearestStations.edges.reduce((acc, { node: n }) => {
-      acc.push(n);
+      const distanceFromLocationMeters = Math.round(
+        +n.distanceFromLocationMeters
+      );
+      acc.push(Object.assign({}, n, { distanceFromLocationMeters }));
       return acc;
     }, []);
+
+  const seenIds = {};
+  stations = stations
+    .filter(s => {
+      const seen = seenIds[s.stationId];
+      if (seen) return false;
+      return (seenIds[s.stationId] = true);
+    })
+    .sort(
+      (s1, s2) => s1.distanceFromLocationMeters - s2.distanceFromLocationMeters
+    );
 
   return { stations, county, cityTown, village };
 }
@@ -117,7 +132,6 @@ class Location extends Component {
   }
 
   render() {
-    console.log('state:', this.state);
     return (
       <div className="content-w">
         <div className="content-i">
@@ -126,18 +140,6 @@ class Location extends Component {
               <div className="col-lg-12">
                 <div className="element-wrapper">
                   <h6 className="element-header">Location</h6>
-                  <h1>Location</h1>
-                  <table>
-                    <tr>
-                      <th>Latitude</th>
-                      <td>{this.state.latitude}</td>
-                    </tr>
-                    <tr>
-                      <th>Longitude</th>
-                      <td>{this.state.longitude}</td>
-                    </tr>
-                  </table>
-
                   <QueryRenderer
                     environment={relay}
                     query={q}
@@ -155,27 +157,140 @@ class Location extends Component {
                         );
 
                         return (
-                          <div>
-                            {county ? (
-                              <pre>{JSON.stringify(county, null, 4)}</pre>
-                            ) : (
-                              ''
-                            )}
-                            {cityTown ? (
-                              <pre>{JSON.stringify(cityTown, null, 4)}</pre>
-                            ) : (
-                              ''
-                            )}
-                            {village ? (
-                              <pre>{JSON.stringify(village, null, 4)}</pre>
-                            ) : (
-                              ''
-                            )}
-                            {stations ? (
-                              <pre>{JSON.stringify(stations, null, 4)}</pre>
-                            ) : (
-                              ''
-                            )}
+                          <div className="element-wrapper">
+                            <div className="element-box">
+                              <div>
+                                <div className="element-info">
+                                  <h3 className="element-inner-header">
+                                    Your Location Information
+                                  </h3>
+                                  <table className="table table-lightborder">
+                                    <tr>
+                                      <th>Latitude</th>
+                                      <td>{this.state.latitude}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Longitude</th>
+                                      <td>{this.state.longitude}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Region</th>
+                                      <td>{county ? county.region : ''}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>County</th>
+                                      <td>{county ? county.name : ''}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>County FIPS</th>
+                                      <td>{county ? county.fips : ''}</td>
+                                    </tr>
+                                    <tr>
+                                      <th>Municipality</th>
+                                      <td>
+                                        {village ? (
+                                          `Village of ${village.name}`
+                                        ) : cityTown ? (
+                                          `${cityTown.muniType
+                                            .split('')
+                                            .map(
+                                              (c, i) =>
+                                                i === 0 ? c.toUpperCase() : c
+                                            )
+                                            .join('')} of ${cityTown.name}`
+                                        ) : (
+                                          ''
+                                        )}
+                                      </td>
+                                    </tr>
+                                  </table>
+                                  <div id="mini-map" className="element-box">
+                                    <MiniMap
+                                      center={[
+                                        this.state.longitude,
+                                        this.state.latitude
+                                      ]}
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <div>
+                                <div className="element-info">
+                                  <h3 className="element-inner-header">
+                                    Nearest 5 Short Count Stations
+                                  </h3>
+                                  {
+                                    // "muni": "TOWN OF NASSAU",
+                                    // "stationId": "14_0001",
+                                    // "regionCode": 1,
+                                    // "countyCode": 4,
+                                    // "latitude": 42.48866,
+                                    // "longitude": -73.55701,
+                                    // "region": 1,
+                                    // "tdvRoute": "NY-66",
+                                    // "begindesc": "Col/Rens Co Line",
+                                    // "enddesc": "START 20/66 OLAP",
+                                    // "functionalClass": 7,
+                                    // "factorGroup": 40,
+                                    // "distanceFromLocationMeters": 2049.08822572
+                                  }
+                                  {stations.map(stationInfo => (
+                                    <div>
+                                      <h4>{stationInfo.stationId}</h4>
+                                      <table className="table table-lightborder">
+                                        <tr>
+                                          <th>Municipality</th>
+                                          <td>{stationInfo.muni}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Region Code</th>
+                                          <td>{stationInfo.regionCode}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>County Code</th>
+                                          <td>{stationInfo.countyCode}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Latitude</th>
+                                          <td>{stationInfo.latitude}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Longitude</th>
+                                          <td>{stationInfo.longitude}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>TDV Route</th>
+                                          <td>{stationInfo.tdvRoute}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Begin Description</th>
+                                          <td>{stationInfo.begindesc}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>End Description</th>
+                                          <td>{stationInfo.enddesc}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Functional Class</th>
+                                          <td>{stationInfo.functionalClass}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Factor Group</th>
+                                          <td>{stationInfo.factorGroup}</td>
+                                        </tr>
+                                        <tr>
+                                          <th>Distance From Your Location</th>
+                                          <td>
+                                            {stationInfo.distanceFromLocationMeters}&nbsp;
+                                            meters
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         );
                       }

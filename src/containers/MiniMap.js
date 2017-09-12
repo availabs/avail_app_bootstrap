@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
+import { push } from 'react-router-redux';
 import Map from '../components/Map';
 const gltoken =
   'pk.eyJ1IjoiYW0zMDgxIiwiYSI6IkxzS0FpU0UifQ.rYv6mHCcNd7KKMs7yhY3rw';
@@ -8,6 +9,11 @@ const layers = [
   'tdv-shapefile-short-counts-20-4k5gbl'
 ];
 
+const action = act => {
+  return dispatch => {
+    return dispatch(act);
+  };
+};
 export function Mapf(props) {
   return (
     <Map
@@ -30,10 +36,17 @@ const mapStateToProps = state => ({
   pitch: 40
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { action };
 
 const mergeProps = (props, disp, own) => {
   console.log('<MiniMap>', own);
+  props.get = f => {
+    let id = f.properties.RC_ID;
+    if (id) {
+      disp.action(push(`/station-info/${id}/`));
+      disp.action(push(`/station-info/${id}/`));
+    }
+  };
   for (let k in own) {
     if (k === 'id') {
       props['highlightId'] = {

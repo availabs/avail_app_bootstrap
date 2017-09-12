@@ -73,7 +73,8 @@ export default function StationInfo(props) {
 
   const { stationId, countType, countSubtype } = props.match.params;
   const match = props.match;
-
+  const noRight = props.noRight;
+  console.log('noRight', noRight);
   return (
     <QueryRenderer
       environment={relay}
@@ -221,7 +222,25 @@ export default function StationInfo(props) {
                 </tr>
               </table>
             ));
-
+          const rightPane = () => {
+            if (noRight) return <span />;
+            else {
+              return (
+                <div id="right-pane" className="col-lg-4">
+                  <div className="element-wrapper">
+                    <h6 className="element-header">Station Location Data</h6>
+                    <div className="element-box">
+                      <table>{locDataDL}</table>
+                    </div>
+                    <div id="mini-map" className="element-box">
+                      <MiniMap center={center} id={stationId} />
+                    </div>
+                    <div className="element-box">{tablesInfo}</div>
+                  </div>
+                </div>
+              );
+            }
+          };
           return (
             <div className="content-w">
               <BreadcrumbBar
@@ -240,7 +259,7 @@ export default function StationInfo(props) {
               <div className="content-i">
                 <div className="content-box">
                   <div className="row">
-                    <div className="col-lg-8">
+                    <div className={noRight ? 'col-lg-12' : 'col-lg-8'}>
                       <div className="element-wrapper">
                         <h6 className="element-header">
                           Station {stationId}&nbsp;
@@ -253,20 +272,7 @@ export default function StationInfo(props) {
                         {dataView}
                       </div>
                     </div>
-                    <div className="col-lg-4">
-                      <div className="element-wrapper">
-                        <h6 className="element-header">
-                          Station Location Data
-                        </h6>
-                        <div className="element-box">
-                          <table>{locDataDL}</table>
-                        </div>
-                        <div id="mini-map" className="element-box">
-                          <MiniMap center={center} id={stationId} />
-                        </div>
-                        <div className="element-box">{tablesInfo}</div>
-                      </div>
-                    </div>
+                    {rightPane()}
                   </div>
                 </div>
               </div>
