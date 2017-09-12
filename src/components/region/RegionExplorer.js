@@ -13,7 +13,6 @@ class RegionExplorer extends React.Component {
 
   changeCounty(e) {
     e.preventDefault();
-    // console.log('changeCounty', )
     this.setState({ activeCounty: e.target.getAttribute('href') });
   }
 

@@ -71,7 +71,7 @@ export default function StationInfo(props) {
     }
   `;
 
-  const { stationId, countType } = props.match.params;
+  const { stationId, countType, countSubtype } = props.match.params;
   const match = props.match;
 
   return (
@@ -95,6 +95,28 @@ export default function StationInfo(props) {
               active: countType === 'short_count',
               disabled: true,
               link: `/station-info/${stationId}/short_count/`
+            }
+          ];
+          let count_subTypes = [
+            {
+              text: 'VOLUME',
+              active: !countSubtype || countSubtype === 'volume',
+              disabled: true,
+              link: `/station-info/${stationId}/${countType || 'short_count'}/`
+            },
+            {
+              text: 'SPEED',
+              active: countSubtype === 'speed',
+              disabled: true,
+              link: `/station-info/${stationId}/${countType ||
+                'short_count'}/speed`
+            },
+            {
+              text: 'CLASS',
+              active: countSubtype === 'class',
+              disabled: true,
+              link: `/station-info/${stationId}/${countType ||
+                'short_count'}/class`
             }
           ];
           let dataView = null;
@@ -141,6 +163,11 @@ export default function StationInfo(props) {
             {}
           );
           const typeNav = <Navbar items={count_types} />;
+          const subTypeNav = (
+            <div className="element-box">
+              <Navbar items={count_subTypes} />
+            </div>
+          );
 
           const locData = props.allStationLocationData.edges[0].node;
 
