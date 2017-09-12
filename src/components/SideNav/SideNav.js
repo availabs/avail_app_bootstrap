@@ -11,6 +11,11 @@ const menus = [
     link: '/'
   },
   {
+    icon: 'os-icon-hierarchy-structure-2',
+    title: 'Map',
+    link: '/map'
+  },
+  {
     icon: 'os-icon-grid-squares',
     title: 'Dashboards',
     link: '/',
