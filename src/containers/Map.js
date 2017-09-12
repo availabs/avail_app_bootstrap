@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { stationSelect } from '../modules/map';
 import Map from '../components/Map';
 import AWVSgraph from './stationData/AverageWeekdayVolumeForStation';
+import StationInfo from './StationInfo';
+import AverageWeekdayVolumeForStation from './stationData/AverageWeekdayVolumeForStation';
+import ShortCountVolumeForStation from './stationData/ShortCountVolumeForStation';
+
 const gltoken =
   'pk.eyJ1IjoiYW0zMDgxIiwiYSI6IkxzS0FpU0UifQ.rYv6mHCcNd7KKMs7yhY3rw';
 const layers = [
@@ -30,8 +34,10 @@ export function Sidepanel(props) {
     <span />
   ) : (
     <div className="Map-Overlay color-scheme-dark">
-      <h4> {props.value} </h4>
-      <AWVSgraph match={{ params: { stationId: props.value } }} />
+      <StationInfo
+        noRight={true}
+        match={{ params: { stationId: props.value } }}
+      />
     </div>
   );
 }
