@@ -385,6 +385,9 @@ export class TmcMap extends React.Component {
     } else if (this.state.map) {
       this.state.map.dragPan.disable();
     }
+    if (this.props.center !== nextProps.center) {
+      this.state.map.setCenter(nextProps.center);
+    }
   }
   onSlide(val) {
     console.log('<MAP>', val);

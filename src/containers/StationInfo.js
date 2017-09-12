@@ -151,7 +151,9 @@ export default function StationInfo(props) {
             </tr>
           ));
           let center = null;
-
+          if (locData.latitude) {
+            center = [locData.longitude, locData.latitude];
+          }
           const summary = Object.entries(info).reduce((acc, [tableName, d]) => {
             acc[tableName] = {
               minDate: d.minDates.sort().pop(),
