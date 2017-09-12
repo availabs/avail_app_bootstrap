@@ -2,20 +2,6 @@ import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay';
 import relay from '../relay.js';
 
-function parser(d) {
-  const { searchNNearestShortCountStations: nNearestStationsResult } = d;
-
-  const nNearestStations = nNearestStationsResult.edges.reduce(
-    (acc, { node: n }) => {
-      acc.push(n);
-      return acc;
-    },
-    []
-  );
-
-  return { nNearestStations };
-}
-
 const q = graphql`
   query LocationNearestStationsQuery($qLon: Float, $qLat: Float) {
     searchNNearestShortCountStations(qLon: $qLon, qLat: $qLat) {
@@ -23,8 +9,74 @@ const q = graphql`
         node
       }
     }
+    searchContainingCounty(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node {
+          name
+          region
+          fips
+        }
+      }
+    }
+    searchContainingCityTown(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node {
+          name
+          county
+          muniType
+        }
+      }
+    }
+    searchContainingVillage(qLon: $qLon, qLat: $qLat) {
+      edges {
+        node {
+          name
+          county
+        }
+      }
+    }
   }
 `;
+
+function parser(d) {
+  const {
+    searchNNearestShortCountStations: nNearestStationsResult,
+    searchContainingCounty: containingCounty,
+    searchContainingCityTown: containingCityTown,
+    searchContainingVillage: containingVillage
+  } = d;
+
+  const county =
+    containingCounty &&
+    containingCounty.edges &&
+    containingCounty.edges.length &&
+    containingCounty.edges[0].node;
+
+  const cityTown =
+    containingCityTown &&
+    containingCityTown.edges &&
+    containingCityTown.edges.length &&
+    containingCityTown.edges[0].node;
+
+  const village =
+    containingVillage &&
+    containingVillage.edges &&
+    containingVillage.edges.length &&
+    Object.assign({}, containingVillage.edges[0].node, {
+      muniType: 'village'
+    });
+
+  const nNearestStations =
+    nNearestStationsResult &&
+    nNearestStationsResult.edges &&
+    nNearestStationsResult.edges.length &&
+    nNearestStationsResult.edges.reduce((acc, { node: n }) => {
+      acc.push(n);
+      return acc;
+    }, []);
+
+  return { nNearestStations, county, cityTown, village };
+}
 
 class Location extends Component {
   constructor(props) {
@@ -81,10 +133,38 @@ class Location extends Component {
                       if (error) {
                         return <div>{error.message}</div>;
                       } else if (props) {
-                        const { nNearestStations } = parser(props);
+                        const {
+                          nNearestStations,
+                          county,
+                          village,
+                          cityTown
+                        } = parser(props);
 
                         return (
-                          <pre>{JSON.stringify(nNearestStations, null, 4)}</pre>
+                          <div>
+                            {county ? (
+                              <pre>{JSON.stringify(county, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                            {cityTown ? (
+                              <pre>{JSON.stringify(cityTown, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                            {village ? (
+                              <pre>{JSON.stringify(village, null, 4)}</pre>
+                            ) : (
+                              ''
+                            )}
+                            {nNearestStations ? (
+                              <pre>
+                                {JSON.stringify(nNearestStations, null, 4)}
+                              </pre>
+                            ) : (
+                              ''
+                            )}
+                          </div>
                         );
                       }
                       return <div>Loading</div>;
