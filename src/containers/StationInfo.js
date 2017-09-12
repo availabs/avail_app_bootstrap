@@ -251,7 +251,7 @@ export default function StationInfo(props) {
                           <table>{locDataDL}</table>
                         </div>
                         <div id="mini-map" className="element-box">
-                          <MiniMap center={center} />
+                          <MiniMap center={center} id={stationId} />
                         </div>
                         <div className="element-box">{tablesInfo}</div>
                       </div>

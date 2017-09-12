@@ -35,7 +35,14 @@ const mapDispatchToProps = {};
 const mergeProps = (props, disp, own) => {
   console.log('<MiniMap>', own);
   for (let k in own) {
-    props[k] = own[k] || props[k];
+    if (k === 'id') {
+      props['highlightId'] = {
+        layer: 'tdv-shapefile-short-counts-20-4k5gbl',
+        id: own[k]
+      };
+    } else {
+      props[k] = own[k] || props[k];
+    }
   }
   console.log('<MiniMap>', props);
   return props;
